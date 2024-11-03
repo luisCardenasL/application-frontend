@@ -36,7 +36,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Registration',
-    to: '/theme/colors',
+    to: '#',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   },
   {

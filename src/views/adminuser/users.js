@@ -10,60 +10,112 @@ import {
   CCardFooter,
   CCardHeader,
   CCol,
+  CForm,
+  CFormInput,
   CProgress,
   CRow,
+  CSpinner,
   CTable,
   CTableBody,
   CTableDataCell,
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CInputGroup,
+  CInputGroupText,
+  CFormSelect,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {
-  cibCcAmex,
-  cibCcApplePay,
-  cibCcMastercard,
-  cibCcPaypal,
-  cibCcStripe,
-  cibCcVisa,
-  cibGoogle,
-  cibFacebook,
-  cibLinkedin,
-  cifBr,
-  cifEs,
-  cifFr,
-  cifIn,
-  cifPl,
-  cifUs,
-  cibTwitter,
-  cilCloudDownload,
   cilPeople,
+  cilLockLocked,
   cilUser,
-  cilUserFemale,
+
 } from '@coreui/icons'
 
 import { useParams } from 'react-router-dom';
 import useFetch from 'src/components/useFetch';
 import UserList from 'src/components/UserList';
 
-import avatar1 from 'src/assets/images/avatars/1.jpg'
-import avatar2 from 'src/assets/images/avatars/2.jpg'
-import avatar3 from 'src/assets/images/avatars/3.jpg'
-import avatar4 from 'src/assets/images/avatars/4.jpg'
-import avatar5 from 'src/assets/images/avatars/5.jpg'
-import avatar6 from 'src/assets/images/avatars/6.jpg'
-
-
 const Users = () => {
 
-  const { id } = useParams();
   const { data: users, error, isPending } = useFetch("http://localhost:8000/users/");
-  const { role: item, errorR, isPendingR} = useFetch("http://localhost:8000/roles/");
-  
+
     return (
+      <>
             <CCard className="mb-4">
-              <CCardHeader>Users</CCardHeader>
+            <CCardHeader>Create a new User</CCardHeader>
+              <CForm className='p-4'>
+                <CInputGroup>
+                  <CInputGroupText>
+                      <CIcon icon={cilUser} />
+                  </CInputGroupText>
+                    <CFormInput
+                      type="text"
+                      placeholder="First name"
+                      autoComplete="first-name"
+                    />
+                    <CFormInput
+                      type="text"
+                      placeholder="Middle Name"
+                      autoComplete="middle-name"
+                    />
+                     <CFormInput
+                      type="text"
+                      placeholder="First Lastname"
+                      autoComplete="lastname"
+                    />
+                     <CFormInput
+                      type="password"
+                      placeholder="Second Lastname"
+                      autoComplete="lastname"
+                    />
+                </CInputGroup>
+                  <br/>
+                <CInputGroup>
+                  <CInputGroupText>
+                      @
+                    </CInputGroupText>
+                    <CFormInput
+                      type="email"
+                      placeholder="Email"
+                      autoComplete="email"
+                    />
+                </CInputGroup>
+                  <br/>
+              <CInputGroup>
+              <CInputGroupText>
+                      <CIcon icon={cilLockLocked} />
+                    </CInputGroupText>
+                    <CFormInput
+                      type="password"
+                      placeholder="Password"
+                      autoComplete="new-password"
+                    />
+                    <CInputGroupText>
+                      <CIcon icon={cilLockLocked} />
+                    </CInputGroupText>
+                    <CFormInput
+                      type="password"
+                      placeholder="Repeat password"
+                      autoComplete="new-password"
+                    />
+                  </CInputGroup>
+                  <br/>
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText as="label" >Role</CInputGroupText>
+                    <CFormSelect id="inputGroupSelect01">
+                      <option>Choose Role...</option>
+                      <option value="2">Secretary</option>
+                      <option value="3">Coordinator</option>
+                      <option value="4">Teacher</option>
+                    </CFormSelect>
+                  </CInputGroup>
+              </CForm>
+            </CCard>
+            <br/>
+            <CCard className="mb-4">
+              <CCardHeader>List of Users</CCardHeader>
               <CCardBody>
               <CTable align="middle" className="mb-0 border" hover responsive>
                 <CTableHead className="text-nowrap">
@@ -76,7 +128,7 @@ const Users = () => {
                       Email
                     </CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary">
-                      Update_at
+                      Updated_at
                     </CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary">Role</CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary">Status</CTableHeaderCell>
@@ -85,11 +137,19 @@ const Users = () => {
                   </CTableRow>
                 </CTableHead>
                 {error && <p>{error}</p>}
-                {isPending && <p>Loading users...</p>}
+                {isPending && 
+                <CTableBody>
+                  <CTableRow>
+                    <CTableDataCell colSpan={8} className="text-center">
+                      <CSpinner color = "primary" size ="sm" style={{ width: '4rem', height: '4rem'}}/>
+                    </CTableDataCell>
+                  </CTableRow>
+                </CTableBody>}
                 {users && <UserList users={users} />}
               </CTable>
               </CCardBody>
             </CCard>
+          </>
                 )
 }
 

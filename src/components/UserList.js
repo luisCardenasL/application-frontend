@@ -2,16 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import {
-    CAvatar,
     CButton,
     CButtonGroup,
     CTableBody,
+    CSpinner,
     CTableDataCell,
     CTableRow,
   } from '@coreui/react'
+  import CIcon from '@coreui/icons-react'
+  import {
+    cilPen,
+    cilTrash,
+  } from '@coreui/icons'
+import UserDeleteModal from './UserDeleteModal';
+import GetUserRoleText from './GetUserRoleText';
 
-const UserList = ({ users, name }) => {
 
+const UserList = ({ users }) => {
     return (
         <>
                 <CTableBody>
@@ -33,16 +40,18 @@ const UserList = ({ users, name }) => {
                         <div>{item.updated_at}</div>
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
-                        <div>{item.role_id}</div>
+                      <div>{item.role_id}</div>
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
                         <div>{item.status}</div>
                       </CTableDataCell>
-                      <CTableDataCell>
-                        <div>boton1</div>
+                      <CTableDataCell className="text-center">
+                        <Link to ={`/users/${item.uid}`}>
+                            <CIcon icon={cilPen} size='lg' color='primary' />
+                        </Link>
                       </CTableDataCell>
-                      <CTableDataCell>
-                        <div>boton1</div>
+                      <CTableDataCell className="text-center">
+                            <UserDeleteModal/>
                       </CTableDataCell>
                     </CTableRow>
                   ))}
