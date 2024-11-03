@@ -1,0 +1,54 @@
+{
+    "roles":[
+        {
+            "role_id" : 1,
+            "name": "admin"
+        },
+        {
+            "role_id" : 2,
+            "name": "secretary"
+        },
+        {
+            "role_id" : 3,
+            "name": "coodinator"
+        },
+        {
+            "role_id" : 4,
+            "name": "teacher"
+        }
+    ],
+    "users":[
+        {
+            "user_id" : 1,
+            "role_id" : 1,
+            "email" : "admin@gmail.com",
+            "created_at" : "2024-10-30",
+            "updated_at" : "2024-10-30",
+            "status" : "active"
+        },
+        {
+            "user_id" : 2,
+            "role_id" : 2,
+            "email" : "secretary@gmail.com",
+            "created_at" : "2024-10-30",
+            "updated_at" : "2024-10-30",
+            "status" : "active"
+        },
+        {
+            "user_id" : 3,
+            "role_id" : 3,
+            "email" : "coodinator@gmail.com",
+            "created_at" : "2024-10-30",
+            "updated_at" : "2024-10-30",
+            "status" : "active"
+        },
+        {
+            "user_id" : 4,
+            "role_id" : 4,
+            "email" : "teacher@gmail.com",
+            "created_at" : "2024-10-30",
+            "updated_at" : "2024-10-30",
+            "status" : "active"
+        }
+    ]
+}
