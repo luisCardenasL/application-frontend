@@ -8,7 +8,6 @@ import {
   cilStar,
   cilClipboard,
   cilBarChart,
-
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -26,8 +25,8 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Users',
-    to: '/users',
-    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />
+    to: '/',
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
   },
   {
     component: CNavTitle,

@@ -58,6 +58,17 @@
             "updated_at" : "2024-10-30",
             "status" : "active",
             "uid" : "4f688ce6-32c2-4043-aae7-799ced3981f8"
+        },
+        {
+            "user_id" : 5,
+            "role_id" : 3,
+            "name" : "Pedro Porro",
+            "email" : "coodinator2@gmail.com",
+            "created_at" : "2024-10-30",
+            "updated_at" : "2024-10-30",
+            "status" : "active",
+            "uid" : "7b8dfd94-769c-420b-a1b0-b58f8a28c9c3"
         }
+        
     ]
 }
