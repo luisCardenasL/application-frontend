@@ -15,6 +15,7 @@ import {
   CProgress,
   CRow,
   CSpinner,
+  CTable,
   CTableBody,
   CTableDataCell,
   CTableHead,
@@ -32,7 +33,7 @@ import useFetch from 'src/components/useFetch'
 import UserList from 'src/components/UserList'
 
 const Users = () => {
-  const { data: users, error, isPending } = useFetch('http://localhost:8000/user/')
+  const { data: users, error, isPending } = useFetch('http://localhost:8000/users')
 
   return (
     <>
@@ -46,7 +47,7 @@ const Users = () => {
             <CFormInput type="text" placeholder="First name" autoComplete="first-name" />
             <CFormInput type="text" placeholder="Middle Name" autoComplete="middle-name" />
             <CFormInput type="text" placeholder="First Lastname" autoComplete="lastname" />
-            <CFormInput type="password" placeholder="Second Lastname" autoComplete="lastname" />
+            <CFormInput type="text" placeholder="Second Lastname" autoComplete="lastname" />
           </CInputGroup>
           <br />
           <CInputGroup>
@@ -61,7 +62,7 @@ const Users = () => {
             <CFormInput type="password" placeholder="Password" autoComplete="new-password" />
             <CInputGroupText>
               <CIcon icon={cilLockLocked} />
-            </>
+            </CInputGroupText>
             <CFormInput type="password" placeholder="Repeat password" autoComplete="new-password" />
           </CInputGroup>
           <br />

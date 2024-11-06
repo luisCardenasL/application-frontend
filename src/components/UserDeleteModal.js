@@ -20,7 +20,7 @@ const UserDeleteModal = () => {
   const [visible, setVisible] = useState(false)
   return (
     <>
-      <CButton variant="ghost" onClick={() => setVisible(visible)}>
+      <CButton variant="ghost" onClick={() => setVisible(true)}>
         <CIcon icon={cilTrash} size="lg" className="text-danger" />
       </CButton>
       <CModal visible={visible} onClose={() => setVisible(false)} aria-labelledby="UserDeleteModal">
@@ -34,7 +34,7 @@ const UserDeleteModal = () => {
           </CForm>
         </CModalBody>
         <CModalFooter>
-          <CButton color="danger" onClick={() => setVisible(true)}>
+          <CButton color="danger" onClick={() => setVisible(false)}>
             Confirm
           </CButton>
         </CModalFooter>
