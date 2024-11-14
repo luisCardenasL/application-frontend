@@ -35,8 +35,14 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Registration',
-    to: '#',
+    to: '/registration',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'General List of Students',
+    to: '#',
+    icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
   },
   {
     component: CNavGroup,

@@ -1,74 +1,89 @@
 {
-    "roles":[
-        {
-            "role_id" : 1,
-            "name": "admin"
-        },
-        {
-            "role_id" : 2,
-            "name": "secretary"
-        },
-        {
-            "role_id" : 3,
-            "name": "coodinator"
-        },
-        {
-            "role_id" : 4,
-            "name": "teacher"
-        }
-    ],
-    "users":[
-        {
-            "user_id" : 1,
-            "role_id" : 1,
-            "name" : "UNEFA admin",
-            "email" : "admin@gmail.com",
-            "created_at" : "2024-10-30",
-            "updated_at" : "2024-10-30",
-            "status" : "active",
-            "uid" : "e4eece6f-28b6-4f4d-b77e-44abd9063ebc"
-        },
-        {
-            "user_id" : 2,
-            "role_id" : 2,
-            "name" : "Maria Zambrano",
-            "email" : "secretary@gmail.com",
-            "created_at" : "2024-10-30",
-            "updated_at" : "2024-10-30",
-            "status" : "active",
-            "uid" : "2e0238a8-fb28-4f67-9ef2-57eddae4521e"
-            
-        },
-        {
-            "user_id" : 3,
-            "role_id" : 3,
-            "name" : "Pedro Perez",
-            "email" : "coodinator@gmail.com",
-            "created_at" : "2024-10-30",
-            "updated_at" : "2024-10-30",
-            "status" : "active",
-            "uid" : "7b8dfd94-769c-420b-a1b0-b58f8a28c9c3"
-        },
-        {
-            "user_id" : 4,
-            "role_id" : 4,
-            "name" : "Luz Peña",
-            "email" : "teacher@gmail.com",
-            "created_at" : "2024-10-30",
-            "updated_at" : "2024-10-30",
-            "status" : "active",
-            "uid" : "4f688ce6-32c2-4043-aae7-799ced3981f8"
-        },
-        {
-            "user_id" : 5,
-            "role_id" : 3,
-            "name" : "Pedro Paez",
-            "email" : "coodinator2@gmail.com",
-            "created_at" : "2024-10-30",
-            "updated_at" : "2024-10-30",
-            "status" : "active",
-            "uid" : "7b8dfd94-769c-420b-a1b0-b58f8a28c9c3"
-        }
-        
-    ]
+  "roles": [
+    {
+      "role_id": 1,
+      "name": "Admin"
+    },
+    {
+      "role_id": 2,
+      "name": "Secretary"
+    },
+    {
+      "role_id": 3,
+      "name": "Coodinator"
+    },
+    {
+      "role_id": 4,
+      "name": "Teacher"
+    }
+  ],
+  "users": [
+    {
+      "user_id": 1,
+      "role_id": 1,
+      "name": "UNEFA admin",
+      "email": "admin@gmail.com",
+      "created_at": 1731550422565,
+      "updated_at": 1731550422565,
+      "status": "active",
+      "uid": "e4eece6f-28b6-4f4d-b77e-44abd9063ebc",
+      "password": "password1234"
+    },
+    {
+      "user_id": 2,
+      "role_id": 2,
+      "name": "Maria Zambrano",
+      "email": "secretary@gmail.com",
+      "created_at": 1731550422565,
+      "updated_at": 1731550422565,
+      "status": "active",
+      "uid": "2e0238a8-fb28-4f67-9ef2-57eddae4521e",
+      "password": "password1234"
+    },
+    {
+      "user_id": 3,
+      "role_id": 3,
+      "name": "Pedro Perez",
+      "email": "coodinator@gmail.com",
+      "created_at": 1731550422565,
+      "updated_at": 1731550422565,
+      "status": "active",
+      "uid": "7b8dfd94-769c-420b-a1b0-b58f8a28c9c3",
+      "password": "password1234"
+    },
+    {
+      "user_id": 4,
+      "role_id": 4,
+      "name": "Luz Peña",
+      "email": "teacher@gmail.com",
+      "created_at": 1731550422565,
+      "updated_at": 1731550422565,
+      "status": "active",
+      "uid": "4f688ce6-32c2-4043-aae7-799ced3981f8",
+      "password": "password1234"
+    },
+    {
+      "user_id": 5,
+      "role_id": 3,
+      "name": "Pedro Paez",
+      "email": "coodinator2@gmail.com",
+      "created_at": 1731550422565,
+      "updated_at": 1731550422565,
+      "status": "active",
+      "uid": "43hkjj94-769c-420b-a1b0-b58f8a28c9c3",
+      "password": "password1234"
+    },
+    {
+      "id": "6134",
+      "user_id": 6,
+      "role_id": "4",
+      "name": "Jose Lagos",
+      "email": "josel10@gmail.com",
+      "created_at": 1731552261334,
+      "updated_at": 1731552261334,
+      "status": "active",
+      "uid": "90908b99-498e-4027-b8af-59cd8900a060",
+      "password": "contra123"
+    }
+  ]
 }

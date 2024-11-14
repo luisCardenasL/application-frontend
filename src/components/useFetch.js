@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 
 
-const useFetch = (url) => {
+const useFetch = (endpoint) => {
 
     const [data, setData] = useState(null);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
+    
+    const url = `http://localhost:8000/${endpoint}`;
 
     useEffect(() => {
         setTimeout(() => {
-            fetch(url)
+            fetch(url) 
                 .then(res => {
                     if (!res.ok) {
                         throw Error('Error fetching users data');

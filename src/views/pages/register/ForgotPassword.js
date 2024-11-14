@@ -25,7 +25,7 @@ const Register = () => {
               <CCardBody className="p-4">
                 <CForm>
                   <h1>Forgot Password?</h1>
-                  <p className="text-body-secondary">Create your account</p>
+                  <p className="text-body-secondary">Restore your password</p>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>@</CInputGroupText>
                     <CFormInput placeholder="Email" autoComplete="email" />
