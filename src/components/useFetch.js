@@ -8,13 +8,14 @@ const useFetch = (endpoint) => {
     const [error, setError] = useState(null);
     
     const url = `http://localhost:8000/${endpoint}`;
+    console.log(url)
 
     useEffect(() => {
         setTimeout(() => {
             fetch(url) 
                 .then(res => {
                     if (!res.ok) {
-                        throw Error('Error fetching users data');
+                        throw Error('Error fetching data');
                     }
                     return res.json();
                 })

@@ -1,18 +1,18 @@
 import React from 'react'
-import { CSpinner } from '@coreui/react'
 
 import useFetch from '../useFetch'
+import Loader from '../Loader'
 
 const GetUserRoleText = ({ user_id }) => {
-  const { data: roles, error, isPending } = useFetch(`roles?role_id=${user_id}`)
+  const { data: roles, error, isPending } = useFetch(`roles/${user_id}`)
 
   return (
     <>
       {error && <p>{error}</p>}
       {isPending && (
-        <CSpinner color="primary" size="sm" style={{ width: '4rem', height: '4rem' }} />
+        <Loader></Loader>
       )}
-      {roles && roles.map((item) => <div>{item.name}</div>)}
+      {roles && <div>{roles.name}</div>}
     </>
   )
 }

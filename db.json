@@ -1,26 +1,26 @@
 {
   "roles": [
     {
-      "role_id": 1,
+      "id": "1",
       "name": "Admin"
     },
     {
-      "role_id": 2,
+      "id": "2",
       "name": "Secretary"
     },
     {
-      "role_id": 3,
+      "id": "3",
       "name": "Coodinator"
     },
     {
-      "role_id": 4,
+      "id": "4",
       "name": "Teacher"
     }
   ],
   "users": [
     {
-      "user_id": 1,
-      "role_id": 1,
+      "id": "1",
+      "role_id": "1",
       "name": "UNEFA admin",
       "email": "admin@gmail.com",
       "created_at": 1731550422565,
@@ -30,8 +30,8 @@
       "password": "password1234"
     },
     {
-      "user_id": 2,
-      "role_id": 2,
+      "id": "2",
+      "role_id": "2",
       "name": "Maria Zambrano",
       "email": "secretary@gmail.com",
       "created_at": 1731550422565,
@@ -41,49 +41,37 @@
       "password": "password1234"
     },
     {
-      "user_id": 3,
-      "role_id": 3,
-      "name": "Pedro Perez",
-      "email": "coodinator@gmail.com",
-      "created_at": 1731550422565,
-      "updated_at": 1731550422565,
-      "status": "active",
-      "uid": "7b8dfd94-769c-420b-a1b0-b58f8a28c9c3",
-      "password": "password1234"
-    },
-    {
-      "user_id": 4,
-      "role_id": 4,
-      "name": "Luz Peña",
-      "email": "teacher@gmail.com",
-      "created_at": 1731550422565,
-      "updated_at": 1731550422565,
-      "status": "active",
-      "uid": "4f688ce6-32c2-4043-aae7-799ced3981f8",
-      "password": "password1234"
-    },
-    {
-      "user_id": 5,
-      "role_id": 3,
-      "name": "Pedro Paez",
-      "email": "coodinator2@gmail.com",
-      "created_at": 1731550422565,
-      "updated_at": 1731550422565,
-      "status": "active",
-      "uid": "43hkjj94-769c-420b-a1b0-b58f8a28c9c3",
-      "password": "password1234"
-    },
-    {
-      "id": "6134",
-      "user_id": 6,
-      "role_id": "4",
+      "id": "3",
+      "role_id": "3",
       "name": "Jose Lagos",
-      "email": "josel10@gmail.com",
-      "created_at": 1731552261334,
-      "updated_at": 1731552261334,
+      "email": "jose124@gmail.com",
+      "created_at": 1731827511165,
+      "updated_at": 1731827511165,
       "status": "active",
-      "uid": "90908b99-498e-4027-b8af-59cd8900a060",
-      "password": "contra123"
+      "uid": "d74734e2-3dfd-4671-b3de-e161984a1fcb",
+      "password": "Contra123"
+    },
+    {
+      "id": "4",
+      "role_id": "3",
+      "name": "Pedro Perez",
+      "email": "pedrop123@gmail.com",
+      "created_at": 1731848951621,
+      "updated_at": 1731848951621,
+      "status": "active",
+      "uid": "d402f116-504b-495f-b7f0-fbd5a15be58e",
+      "password": "contraseña"
+    },
+    {
+      "id": "5",
+      "role_id": "4",
+      "name": "Juan Medina",
+      "email": "juan@gmail.com",
+      "created_at": 1731858345152,
+      "updated_at": 1731858345152,
+      "status": "active",
+      "uid": "b9edabad-5e0c-4a73-81fa-706df87657d1",
+      "password": "12345678"
     }
   ]
 }

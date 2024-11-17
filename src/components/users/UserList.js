@@ -20,9 +20,9 @@ const UserList = ({ users }) => {
     <>
       <CTableBody>
         {users.map((item) => (
-          <CTableRow v-for="item in tableItems" key={item.user_id}>
+          <CTableRow v-for="item in tableItems" key={item.id}>
             <CTableDataCell className="text-center">
-              <div>{item.user_id}</div>
+              <div>{item.id}</div>
             </CTableDataCell>
             <CTableDataCell>
               <div>{item.name}</div>
@@ -49,7 +49,7 @@ const UserList = ({ users }) => {
               </Link>
             </CTableDataCell>
             <CTableDataCell className="text-center">
-              <UserDeleteModal />
+              <UserDeleteModal id = {item.id} />
             </CTableDataCell>
           </CTableRow>
         ))}

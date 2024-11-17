@@ -28,20 +28,22 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilPeople, cilLockLocked, cilUser } from '@coreui/icons'
 
-import { useState, } from 'react'
+import { useState, useEffect } from 'react'
 
 import { v4 as uuidv4 } from 'uuid';
 
-import useFetch from 'src/components/useFetch'
 import UserList from '../../components/users/UserList'
 import helpFetch from '../../components/helpFetch'
+import Loader from '../../components/Loader'
 
 const Users = () => {
-  const { data: users, error, isPending } = useFetch('users')
+  const [users, setUsers] = useState([])
   const API =  helpFetch()
+  const [Loading,SetLoading] = useState(true)
+  let nUsers = localStorage.getItem('nUsers')
 
   const [userData,setUserData] = useState({
-      user_id: null,
+      id: '',
       role_id: null,
       name: '',
       email: '',
@@ -51,20 +53,33 @@ const Users = () => {
       uid: '',
       password: ''
   })
+
+  useEffect(() => {
+    SetLoading(true)
+    setTimeout(() => {
+      API.get("users").then((response) => {
+        if (!response.error) setUsers(response)
+      })
+  }, 1000);
+  SetLoading(false)
+  }, [users])
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if(!(userData.email == '') && !(userData.name == '') && !(userData.role_id < 2) && !(userData.password == '')){
       userData.uid = uuidv4();
-      userData.user_id = (users.length + 1);
+      userData.id = `${(parseInt(nUsers) + 1)}`;
       userData.status = 'active';
       userData.created_at = Date.now();
       userData.updated_at = Date.now();
 
       console.log(userData);
       addUser(userData);
+      localStorage.setItem('nUsers',userData.id)
+      nUsers = localStorage.getItem('nUsers')
       setUserData({
-        user_id: null,
+        id: '',
         role_id: null,
         name: '',
         email: '',
@@ -74,8 +89,6 @@ const Users = () => {
         uid: ''
       })
     }
-    
-
   }
 
   const handleChange = (e) => {
@@ -90,7 +103,7 @@ const Users = () => {
       body: user
     }
     API.post('users',options).then(resp => {
-      console.log(res);
+      if(!resp.error) setUsers([...users,user])
     })
   }
 
@@ -155,16 +168,7 @@ const Users = () => {
                 <CTableHeaderCell className="bg-body-tertiary">Delete</CTableHeaderCell>
               </CTableRow>
             </CTableHead>
-            {error && <p>{error}</p>}
-            {isPending && (
-              <CTableBody>
-                <CTableRow>
-                  <CTableDataCell colSpan={8} className="text-center">
-                    <CSpinner color="primary" size="sm" style={{ width: '4rem', height: '4rem' }} />
-                  </CTableDataCell>
-                </CTableRow>
-              </CTableBody>
-            )}
+            {Loading && <Loader></Loader>}
             {users && <UserList users={users} />}
           </CTable>
         </CCardBody>

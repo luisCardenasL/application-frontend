@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import {
   CButton,
@@ -16,8 +16,19 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilTrash } from '@coreui/icons'
 
-const UserDeleteModal = () => {
+import helpFetch from '../helpFetch'
+
+const UserDeleteModal = ({id}) => {
   const [visible, setVisible] = useState(false)
+  const API = helpFetch()
+
+  const deleteUser = () => {
+    API.delet('users',id).then(resp => {
+      if(!resp.error){
+      }
+    })
+  }
+
   return (
     <>
       <CButton variant="ghost" onClick={() => setVisible(true)}>
@@ -34,7 +45,7 @@ const UserDeleteModal = () => {
           </CForm>
         </CModalBody>
         <CModalFooter>
-          <CButton color="danger" onClick={() => setVisible(false)}>
+          <CButton color="danger" onClick={() => {setVisible(false); deleteUser()}}>
             Confirm
           </CButton>
         </CModalFooter>

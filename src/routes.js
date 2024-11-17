@@ -9,6 +9,7 @@ const UserDetails = React.lazy(() => import('./views/adminuser/UserDetails'))
 
 //Secretary
 const Registration = React.lazy(() => import('./views/secretary/registration'))
+const StudentLists = React.lazy(() => import('./views/secretary/StudentsLists'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -16,6 +17,7 @@ const routes = [
   { path: '/users', name: 'Users', element: Users },
   { path: '/users/:uid', name: 'UserDetails', element: UserDetails, exact: false },
   { path: '/registration', name: 'Registration', element: Registration },
+  { path: '/students', name: 'Students', element: StudentLists},
 ]
 
 export default routes

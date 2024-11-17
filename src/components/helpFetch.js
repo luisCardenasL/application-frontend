@@ -24,20 +24,63 @@ const helpFetch = () => {
                      error: true,
                      status: res.status,
                      statusText: res.statusText
-
                     })
-                }).catch(error => error)
+                }).catch(error => {
+                    console.error("Error Fetching");
+                    return{
+                        error: true,
+                        status: error.status,
+                    }
+                })
     }
+    
+    const get = (endpoint) => customFetch(endpoint)
 
     const post = (endpoint, options) => {
         options.method = "POST"
         return customFetch(endpoint,options).then(resp => {
-            console.log(res);
+            console.log(resp);
         })
-        .catch(error => error)
+        .catch(error => {
+            console.error("Error Post Request");
+            return{
+                error: true,
+                status: error.status,
+            }
+        })
     }
 
-    return {post}
+    const put = (endpoint, options, id) => {
+        options.method = "PUT"
+        return customFetch(`${endpoint}/${id}`,options).then(resp => {
+            console.log(resp);
+        })
+        .catch(error => {
+            console.error("Error Put Request");
+            return{
+                error: true,
+                status: error.status,
+            }
+        })
+    }
+
+    const delet = (endpoint,id) => {
+        const options = {
+            method: "DELETE"
+        }
+        return customFetch(`${endpoint}/${id}`,options).then(resp => {
+            console.log(resp);
+        })
+        .catch(error => {
+            console.error("Error Delete Request");
+            return{
+                error: true,
+                status: error.status,
+            }
+        })
+    }
+
+    return {get, post, put, delet}
 }
 
 export default helpFetch
