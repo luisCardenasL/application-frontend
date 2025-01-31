@@ -29,8 +29,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilPeople, cilLockLocked, cilUser } from '@coreui/icons'
 import {Link, useParams } from 'react-router-dom'
-import useFetch from 'src/components/useFetch'
-import helpFetch from '../../components/helpFetch'
+import helpFetch from '../../hooks/helpFetch'
 import ConfirmChangeModal from '../../components/users/confirmChangeModal'
 
 const UserDetails = () => {
