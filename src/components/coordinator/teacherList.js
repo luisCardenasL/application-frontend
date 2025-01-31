@@ -11,45 +11,34 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilPen, cilTrash } from '@coreui/icons'
-import UserDeleteModal from './UserDeleteModal'
 
-
-const UserList = ({ users }) => {
+const teacherList = ({ teachers }) => {
   return (
     <>
       <CTableBody>
-        {users.map((item) => (
-          <CTableRow v-for="item in tableItems" key={item.id}>
+        {teachers.map((item) => (
+          <CTableRow v-for="item in tableItems" key={item.id_doc}>
             <CTableDataCell className="text-center">
-              <div>{item.id}</div>
+              <div>{item.id_doc}</div>
             </CTableDataCell>
             <CTableDataCell>
-              <div>{item.name}</div>
-              <div className="small text-body-secondary text-nowrap">
-                {' '}
-                Registered: {GetTimestampText(item.created_at)}
-              </div>
+              <div>{item.cname}</div>
             </CTableDataCell>
             <CTableDataCell className="text-center">
               <div>{item.email}</div>
             </CTableDataCell>
-            <CTableDataCell>
-              <div>{GetTimestampText(item.updated_at)}</div>
-            </CTableDataCell>
             <CTableDataCell className="text-center">
-              <GetUserRoleText user_id={item.role_id} />
+              <div>{item.profession}</div>
             </CTableDataCell>
             <CTableDataCell className="text-center">
               <div>{item.status}</div>
             </CTableDataCell>
             <CTableDataCell className="text-center">
-              <Link to={`/users/${item.uid}`}>
+              <Link to={`/teacher/${item.uid}`}>
                 <CIcon icon={cilPen} size="lg" color="primary" />
               </Link>
             </CTableDataCell>
-            <CTableDataCell className="text-center">
-              <UserDeleteModal id = {item.id} />
-            </CTableDataCell>
+            <CTableDataCell className="text-center"></CTableDataCell>
           </CTableRow>
         ))}
       </CTableBody>
@@ -57,4 +46,4 @@ const UserList = ({ users }) => {
   )
 }
 
-export default UserList
+export default teacherList

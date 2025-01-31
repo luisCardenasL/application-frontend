@@ -16,7 +16,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilTrash } from '@coreui/icons'
 
-import helpFetch from '../helpFetch'
+import helpFetch  from '../../hooks/helpFetch'
 
 const UserDeleteModal = ({id}) => {
   const [visible, setVisible] = useState(false)

@@ -28,7 +28,6 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilPeople, cilLockLocked, cilUser } from '@coreui/icons'
-
 import {Link, useParams } from 'react-router-dom'
 import useFetch from 'src/components/useFetch'
 import helpFetch from '../../components/helpFetch'
@@ -95,6 +94,7 @@ const UserDetails = () => {
       }
       API.put('users',options,user.id).then(resp => {
         if(!resp.error){
+          console.log("user sucessfully added");
         }
       })
     }

@@ -11,6 +11,9 @@ const UserDetails = React.lazy(() => import('./views/adminuser/UserDetails'))
 const Registration = React.lazy(() => import('./views/secretary/registration'))
 const StudentLists = React.lazy(() => import('./views/secretary/StudentsLists'))
 
+//Coodinator
+const TeacherLists = React.lazy(() => import('./views/coordinator/teachers'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -18,6 +21,7 @@ const routes = [
   { path: '/users/:uid', name: 'UserDetails', element: UserDetails, exact: false },
   { path: '/registration', name: 'Registration', element: Registration },
   { path: '/students', name: 'Students', element: StudentLists},
+  { path: '/teachers', name: 'Teachers', element: TeacherLists},
 ]
 
 export default routes

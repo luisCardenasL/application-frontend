@@ -24,34 +24,32 @@ import {
   CInputGroup,
   CInputGroupText,
   CFormSelect,
+  CModal,
+  CModalBody,
+  CModalHeader,
+  CModalTitle
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilPeople, cilLockLocked, cilUser } from '@coreui/icons'
 
 import { useState, useEffect } from 'react'
-
-import { v4 as uuidv4 } from 'uuid';
-
 import UserList from '../../components/users/UserList'
-import helpFetch from '../../components/helpFetch'
+import helpFetch from '../../hooks/helpFetch'
 import Loader from '../../components/Loader'
 
 const Users = () => {
   const [users, setUsers] = useState([])
+  const [visibleLg, setVisibleLg] = useState(false)
   const API =  helpFetch()
   const [Loading,SetLoading] = useState(true)
-  let nUsers = localStorage.getItem('nUsers')
 
   const [userData,setUserData] = useState({
-      id: '',
       role_id: null,
       name: '',
       email: '',
-      created_at: '',
-      updated_at: '',
       status: '',
-      uid: '',
       password: ''
+      
   })
 
   useEffect(() => {
@@ -68,25 +66,14 @@ const Users = () => {
     e.preventDefault();
 
     if(!(userData.email == '') && !(userData.name == '') && !(userData.role_id < 2) && !(userData.password == '')){
-      userData.uid = uuidv4();
-      userData.id = `${(parseInt(nUsers) + 1)}`;
       userData.status = 'active';
-      userData.created_at = Date.now();
-      userData.updated_at = Date.now();
-
       console.log(userData);
       addUser(userData);
-      localStorage.setItem('nUsers',userData.id)
-      nUsers = localStorage.getItem('nUsers')
       setUserData({
-        id: '',
         role_id: null,
         name: '',
         email: '',
-        created_at: '',
-        updated_at: '',
         status: '',
-        uid: ''
       })
     }
   }
@@ -109,47 +96,6 @@ const Users = () => {
 
   return (
     <>
-      <CCard className="mb-4">
-        <CCardHeader>Create a new User</CCardHeader>
-        <CForm className="p-4" onSubmit={handleSubmit}>
-          <CInputGroup>
-            <CInputGroupText>
-              <CIcon icon={cilUser} />
-            </CInputGroupText>
-            <CFormInput type="text" name='name' value={userData.name} onChange={handleChange} placeholder="Username" autoComplete="username" />
-          </CInputGroup>
-          <br />
-          <CInputGroup>
-            <CInputGroupText>@</CInputGroupText>
-            <CFormInput type="email" name='email' value={userData.email} onChange={handleChange} placeholder="Email" autoComplete="email" />
-          </CInputGroup>
-          <br />
-          <CInputGroup>
-            <CInputGroupText>
-              <CIcon icon={cilLockLocked} />
-            </CInputGroupText>
-            <CFormInput type="password" name='password' onChange={handleChange} placeholder="Password" autoComplete="new-password" />
-            <CInputGroupText>
-              <CIcon icon={cilLockLocked} />
-            </CInputGroupText>
-            <CFormInput type="password" placeholder="Repeat password" autoComplete="new-password" />
-          </CInputGroup>
-          <br />
-          <CInputGroup className="mb-3">
-            <CInputGroupText as="label">Role</CInputGroupText>
-            <CFormSelect name="role_id" value={userData.role_id} onChange={handleChange}>
-              <option>Choose Role...</option>
-              <option value="2">Secretary</option>
-              <option value="3">Coordinator</option>
-              <option value="4">Teacher</option>
-            </CFormSelect>
-          </CInputGroup>
-          <CButton color='primary' type='submit'>
-              Add +  
-          </CButton>
-        </CForm>
-      </CCard>
-      <br />
       <CCard className="mb-4">
         <CCardHeader>List of Users</CCardHeader>
         <CCardBody>

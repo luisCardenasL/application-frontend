@@ -1,1 +1,21 @@
 // Here you can add other styles
+
+.PhoneInputInput{
+    background-color: var(--cui-body-bg);
+    border: var(--cui-body-bg);
+    color: var(--cui-body-color);
+  }
+  
+  .PhoneInput{
+    border: var(--cui-border-width) solid var(--cui-border-color);
+  }
+  
+  .PhoneInput --focus{
+    border: var(--cui-border-width) solid var(--cui-border-color);
+  }
+  
+  .PhoneInputCountry{
+    border: var(--cui-border-width) solid var(--cui-border-color);
+    padding: 10px;
+    margin-right: 0px;
+  }
