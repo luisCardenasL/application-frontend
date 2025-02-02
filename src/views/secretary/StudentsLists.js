@@ -47,7 +47,6 @@ const StudentLists = () => {
                 <CTableHeaderCell className="bg-body-tertiary">Militar</CTableHeaderCell>
                 <CTableHeaderCell className="bg-body-tertiary">Status</CTableHeaderCell>
                 <CTableHeaderCell className="bg-body-tertiary">Carrer</CTableHeaderCell>
-                <CTableHeaderCell className="bg-body-tertiary">Condition</CTableHeaderCell>
                 <CTableHeaderCell className="bg-body-tertiary">Modify</CTableHeaderCell>
                 <CTableHeaderCell className="bg-body-tertiary">Delete</CTableHeaderCell>
               </CTableRow>

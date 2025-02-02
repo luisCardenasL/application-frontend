@@ -44,9 +44,59 @@ const Registration = () => {
   const [civilStatus, setCivilStatus] = useState([])
   const [states, setStates] = useState([])
   const [stateSelected, setStateSelected] = useState(false)
-  const [municipalities, setMunicipalities] = useState([])
+  const [municipalities, setMunicipalities] = useState([
+    { label: 'Select Residence Munipality', value: 0 },
+  ])
   const [munSelected, setMunSelected] = useState(false)
+  const [parroquies, setParroquies] = useState([{ label: 'Select Residence Parroquies', value: 0 }])
+  const [universities, setUniversities] = useState([])
+  const [gradMentions, setGradMentions] = useState([])
+  const [militarComponents, setMilitarComp] = useState([])
+  const [milCompSelected, setMilCompSelected] = useState(false)
+  const [militarGrades, setMilitarGrades] = useState([{ label: 'Select Militar Grade', value: 0 }])
+  const [periods, setPeriods] = useState([])
+  const [careerCods, setCareerCods] = useState([])
+  const [secretaryStaff, setSecretaryStaff] = useState([])
   const API = helpFetch()
+
+  const [studentData, setStudentData] = useState({
+    TSTcodst: '',
+    TSTiddoc: null,
+    TSTfirna: '',
+    TSTmidna: '',
+    TSTthrna: '',
+    TSTfltna: '',
+    TSTsltna: '',
+    TSTgenst: 'M',
+    TSTmstid: 0,
+    TSTnacid: 0,
+    TSTrstid: 0,
+    TSTbidat: '',
+    TSTresad: '',
+    TSTparid: 0,
+    TSTemail: '',
+    TSTretel: '',
+    TSTcetel: '',
+    TSTmilpe: false,
+    TSTiddfo: false,
+    TSTminfo: false,
+    TSTorare: false,
+    TSTphoto: false,
+    TSTorcbc: false,
+    TSTtsang: 'A+',
+    TSTtyidd: 'V',
+    TSTuniid: 0,
+    TSTgrady: '',
+    TSTagrad: '',
+    TSTgrmid: 0,
+    TMTperid: 0,
+    TMTproid: 0,
+    TMTschsh: false,
+    TMTpadat: '',
+    TMTnrece: 0,
+    TMTpaamo: 0,
+    TMTregby: 0,
+  })
 
   const getNationalities = async () => {
     await API.get('nationalities').then((response) => {
@@ -69,31 +119,196 @@ const Registration = () => {
     })
   }
 
+  const getMunicipalities = async (stateID) => {
+    await API.get(`municipalities/${stateID}`).then((response) => {
+      console.log(response.msg)
+      if (!response.error) setMunicipalities(response.msg)
+    })
+  }
+
+  const getParroquies = async (munID) => {
+    await API.get(`parroquies/${munID}`).then((response) => {
+      console.log(response.msg)
+      if (!response.error) setParroquies(response.msg)
+    })
+  }
+
+  const getUniversities = async () => {
+    await API.get('universities').then((response) => {
+      console.log(response.msg)
+      if (!response.error) setUniversities(response.msg)
+    })
+  }
+
+  const getGradMentions = async () => {
+    await API.get('gradMention').then((response) => {
+      console.log(response.msg)
+      if (!response.error) setGradMentions(response.msg)
+    })
+  }
+
+  const getMilitarComp = async () => {
+    await API.get('militarComponent').then((response) => {
+      console.log(response.msg)
+      if (!response.error) setMilitarComp(response.msg)
+    })
+  }
+
+  const getMilitarGrades = async (milCompID) => {
+    await API.get(`militarGrades/${milCompID}`).then((response) => {
+      console.log(response.msg)
+      if (!response.error) setMilitarGrades(response.msg)
+    })
+  }
+
+  const getPeriods = async () => {
+    await API.get('periods').then((response) => {
+      console.log(response.msg)
+      if (!response.error) setPeriods(response.msg)
+    })
+  }
+
+  const getCareerCods = async () => {
+    await API.get('careerCods').then((response) => {
+      console.log(response.msg)
+      if (!response.error) setCareerCods(response.msg)
+    })
+  }
+
+  const getSecretaryStaff = async () => {
+    await API.get('secretaryStaff').then((response) => {
+      console.log(response.msg)
+      if (!response.error) setSecretaryStaff(response.msg)
+    })
+  }
+
   const handleChange = (e) => {
-    setTeacherData({
-      ...teacherData,
+    setStudentData({
+      ...studentData,
       [e.target.name]: e.target.value,
     })
+    console.log(studentData)
+  }
+
+  const handleChangeTelf1 = (value) => {
+    setStudentData({
+      ...studentData,
+      TSTcetel: value,
+    })
+    console.log(studentData)
+  }
+
+  const handleChangeTelf2 = (value) => {
+    setStudentData({
+      ...studentData,
+      TSTretel: value,
+    })
+    console.log(studentData)
   }
 
   const handleChangeState = (e) => {
     handleChange(e)
-    if (e.target.value === 0) {
+    setMunicipalities([{ label: 'Select Residence Munipality', value: 0 }])
+    setParroquies([{ label: 'Select Residence Munipality', value: 0 }])
+    setMunSelected(false)
+    if (e.target.value == 0) {
       setStateSelected(false)
-      setMunicipalities([])
     } else {
       setStateSelected(true)
+      getMunicipalities(e.target.value)
     }
+  }
+
+  const handleChangeMunicipality = (e) => {
+    handleChange(e)
+    setParroquies([{ label: 'Select Residence Munipality', value: 0 }])
+    if (e.target.value == 0) {
+      setMunSelected(false)
+    } else {
+      setMunSelected(true)
+      getParroquies(e.target.value)
+    }
+  }
+
+  const handleChangeMilComponent = (e) => {
+    handleChange(e)
+    setMilitarGrades([{ label: 'Select Militar Grade', value: 0 }])
+    if (e.target.value == 0) {
+      setMilCompSelected(false)
+    } else {
+      setMilCompSelected(true)
+      getMilitarGrades(e.target.value)
+    }
+  }
+
+  const addStudent = (student) => {
+    const options = {
+      body: student,
+    }
+    API.post('students', options).then((resp) => {
+      if (!resp.error) console.log("Estudiante Agregado")
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+      studentData.TSTcodst = `${studentData.TMTperid}-${studentData.TSTtyidd}-${studentData.TSTiddoc}`
+      addStudent(studentData)
+      setStudentData({
+        TSTcodst: '',
+        TSTiddoc: null,
+        TSTfirna: '',
+        TSTmidna: '',
+        TSTthrna: '',
+        TSTfltna: '',
+        TSTsltna: '',
+        TSTgenst: 'M',
+        TSTmstid: 0,
+        TSTnacid: 0,
+        TSTrstid: 0,
+        TSTbidat: '',
+        TSTresad: '',
+        TSTparid: 0,
+        TSTemail: '',
+        TSTretel: '',
+        TSTcetel: '',
+        TSTmilpe: false,
+        TSTiddfo: false,
+        TSTminfo: false,
+        TSTorare: false,
+        TSTphoto: false,
+        TSTorcbc: false,
+        TSTtsang: 'A+',
+        TSTtyidd: 'V',
+        TSTuniid: 0,
+        TSTgrady: '',
+        TSTagrad: '',
+        TSTgrmid: 0,
+        TMTperid: 0,
+        TMTproid: 0,
+        TMTschsh: false,
+        TMTpadat: '',
+        TMTnrece: 0,
+        TMTpaamo: 0,
+        TMTregby: 0,
+      })
   }
 
   useEffect(() => {
     getNationalities()
     getCivilStatus()
+    getStates()
+    getUniversities()
+    getGradMentions()
+    getMilitarComp()
+    getPeriods()
+    getCareerCods()
+    getSecretaryStaff()
   }, [])
 
   return (
     <>
-      <CForm className="p-4">
+      <CForm className="p-4" onSubmit={handleSubmit}>
         <CTabs activeItemKey="PData">
           <CTabList variant="pills" layout="fill">
             <CTab itemKey="PData">Personal Data</CTab>
@@ -110,31 +325,80 @@ const Registration = () => {
                   <CInputGroupText>
                     <CIcon icon={cilUser} />
                   </CInputGroupText>
-                  <CFormInput type="text" placeholder="First name" autoComplete="name" />
-                  <CFormInput type="text" placeholder="Middle Name" autoComplete="name" />
-                  <CFormInput type="text" placeholder="Third Name" autoComplete="name" />
+                  <CFormInput
+                    value={studentData.TSTfirna}
+                    name="TSTfirna"
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="First name"
+                    autoComplete="name"
+                  />
+                  <CFormInput
+                    value={studentData.TSTmidna}
+                    name="TSTmidna"
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Middle Name"
+                    autoComplete="name"
+                  />
+                  <CFormInput
+                    value={studentData.TSTthrna}
+                    name="TSTthrna"
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Third Name"
+                    autoComplete="name"
+                  />
                 </CInputGroup>
                 <br />
                 <CInputGroup>
-                  <CFormInput type="text" placeholder="First Lastname" autoComplete="lastname" />
-                  <CFormInput type="text" placeholder="Second Lastname" autoComplete="lastname" />
+                  <CFormInput
+                    value={studentData.TSTfltna}
+                    name="TSTfltna"
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="First Lastname"
+                    autoComplete="lastname"
+                  />
+                  <CFormInput
+                    value={studentData.TSTsltna}
+                    name="TSTsltna"
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Second Lastname"
+                    autoComplete="lastname"
+                  />
                 </CInputGroup>
                 <br></br>
                 <CInputGroup>
                   <CInputGroupText>ID Document</CInputGroupText>
-                  <CFormSelect id="inputGroupSelectID">
+                  <CFormSelect
+                    id="inputGroupSelectID"
+                    value={studentData.TSTtyidd}
+                    name="TSTtyidd"
+                    onChange={handleChange}
+                  >
                     <option>Choose Document Type...</option>
                     <option value="V">Venezuelan (V)</option>
                     <option value="E">Foreigner (E)</option>
-                    <option value="P">Passport</option>
+                    <option value="Passport">Passport</option>
                   </CFormSelect>
-                  <CFormInput type="number" placeholder="ID Document" />
+                  <CFormInput
+                    value={studentData.TSTiddoc}
+                    name="TSTiddoc"
+                    onChange={handleChange}
+                    type="number"
+                    placeholder="ID Document"
+                  />
                 </CInputGroup>
                 <br />
                 <CInputGroup>
                   <CInputGroupText>Nationality</CInputGroupText>
                   <CFormSelect
                     id="inputGroupSelectNationality"
+                    value={studentData.TSTnacid}
+                    name="TSTnacid"
+                    onChange={handleChange}
                     options={nationalities}
                   ></CFormSelect>
                 </CInputGroup>
@@ -142,7 +406,12 @@ const Registration = () => {
 
                 <CInputGroup className="mb-3">
                   <CInputGroupText as="label">Gender</CInputGroupText>
-                  <CFormSelect id="inputGroupSelectGender">
+                  <CFormSelect
+                    id="inputGroupSelectGender"
+                    value={studentData.TSTgenst}
+                    name="TSTgenst"
+                    onChange={handleChange}
+                  >
                     <option>Choose Gender...</option>
                     <option value="M">Masculine</option>
                     <option value="F">Femenine</option>
@@ -150,17 +419,34 @@ const Registration = () => {
                 </CInputGroup>
                 <CInputGroup>
                   <CInputGroupText>Birth Date</CInputGroupText>
-                  <CFormInput type="date" placeholder="Fecha de Nacimiento" />
+                  <CFormInput
+                    type="date"
+                    placeholder="Birth dare"
+                    value={studentData.TSTbidat}
+                    name="TSTbidat"
+                    onChange={handleChange}
+                  />
                 </CInputGroup>
                 <br />
                 <CInputGroup>
                   <CInputGroupText as="label">Civil Status</CInputGroupText>
-                  <CFormSelect id="inputGroupSelectBlood" options={civilStatus}></CFormSelect>
+                  <CFormSelect
+                    id="inputGroupSelectBlood"
+                    value={studentData.TSTmstid}
+                    name="TSTmstid"
+                    onChange={handleChange}
+                    options={civilStatus}
+                  ></CFormSelect>
                 </CInputGroup>
                 <br />
                 <CInputGroup>
                   <CInputGroupText as="label">Blood Type</CInputGroupText>
-                  <CFormSelect id="inputGroupSelectBlood">
+                  <CFormSelect
+                    id="inputGroupSelectBlood"
+                    value={studentData.TSTtsang}
+                    name="TSTtsang"
+                    onChange={handleChange}
+                  >
                     <option>Choose Blood Type...</option>
                     <option value="A+">A+</option>
                     <option value="A-">A-</option>
@@ -185,19 +471,35 @@ const Registration = () => {
                 <CCardHeader>Residence Information</CCardHeader>
                 <CInputGroup>
                   <CInputGroupText>Residence Place</CInputGroupText>
-                  <CFormSelect id="inputGroupSelectState" options={states}></CFormSelect>
+                  <CFormSelect
+                    id="inputGroupSelectState"
+                    options={states}
+                    onChange={handleChangeState}
+                  ></CFormSelect>
                   <CFormSelect
                     id="inputGroupSelectMunicipality"
-                    disabled={stateSelected}
+                    options={municipalities}
+                    disabled={!stateSelected}
+                    onChange={handleChangeMunicipality}
                   ></CFormSelect>
-                  <CFormSelect id="inputGroupSelectCity">
-                    <option>Choose City...</option>
-                  </CFormSelect>
+                  <CFormSelect
+                    id="inputGroupSelectParroquies"
+                    options={parroquies}
+                    disabled={!munSelected}
+                    value={studentData.TSTparid}
+                    name="TSTparid"
+                    onChange={handleChange}
+                  ></CFormSelect>
                 </CInputGroup>
                 <br />
                 <CInputGroup>
                   <CInputGroupText>Residence Status</CInputGroupText>
-                  <CFormSelect id="inputGroupSelectResStatus">
+                  <CFormSelect
+                    id="inputGroupSelectResStatus"
+                    value={studentData.TSTrstid}
+                    name="TSTrstid"
+                    onChange={handleChange}
+                  >
                     <option>Choose Residence Status...</option>
                     <option value="1">Permanent</option>
                     <option value="2">Temporal</option>
@@ -209,6 +511,9 @@ const Registration = () => {
                   <CFormInput
                     type="text"
                     placeholder="Ej. Principal Avenue Los Naranjos Street B "
+                    value={studentData.TSTresad}
+                    name="TSTresad"
+                    onChange={handleChange}
                   ></CFormInput>
                 </CInputGroup>
                 <br />
@@ -217,7 +522,13 @@ const Registration = () => {
                 <CCardHeader>Contact Information</CCardHeader>
                 <CInputGroup>
                   <CInputGroupText>Email</CInputGroupText>
-                  <CFormInput type="email" placeholder="example@email.com"></CFormInput>
+                  <CFormInput
+                    type="email"
+                    placeholder="example@email.com"
+                    value={studentData.TSTemail}
+                    name="TSTemail"
+                    onChange={handleChange}
+                  ></CFormInput>
                 </CInputGroup>
                 <br />
                 <CInputGroup>
@@ -226,6 +537,9 @@ const Registration = () => {
                     className="form-control p-0"
                     placeholder="Ingresar N° de Teléfono"
                     defaultCountry="VE"
+                    value={studentData.TSTcetel}
+                    name="TSTcetel"
+                    onChange={handleChangeTelf1}
                   />
                 </CInputGroup>
                 <br />
@@ -235,6 +549,9 @@ const Registration = () => {
                     className="form-control p-0"
                     placeholder="Ingresar N° de Teléfono"
                     defaultCountry="VE"
+                    value={studentData.TSTretel}
+                    name="TSTretel"
+                    onChange={handleChangeTelf2}
                   />
                 </CInputGroup>
                 <br />
@@ -254,87 +571,113 @@ const Registration = () => {
                 <CCardHeader>Academic Information</CCardHeader>
                 <CInputGroup>
                   <CInputGroupText>Procedence University</CInputGroupText>
-                  <CFormSelect id="inputGroupSelectAcaStr">
-                    <option>Choose University...</option>
-                    <option value="1">UNEFA</option>
-                    <option value="2">UNET</option>
-                    <option value="3">UCAB</option>
-                  </CFormSelect>
-                  <CInputGroupText>Core</CInputGroupText>
-                  <CFormSelect id="inputGroupSelect">
-                    <option>Choose Core...</option>
-                    <option value="1">Táchira</option>
-                    <option value="2">Mérida</option>
-                  </CFormSelect>
+                  <CFormSelect
+                    id="inputGroupSelectAcaStr"
+                    options={universities}
+                    value={studentData.TSTuniid}
+                    name="TSTuniid"
+                    onChange={handleChange}
+                  ></CFormSelect>
                 </CInputGroup>
                 <br />
                 <CInputGroup>
                   <CInputGroupText>Gradution year</CInputGroupText>
-                  <CFormInput placeholder="20XX" type="year"></CFormInput>
+                  <CFormInput
+                    placeholder="20XX"
+                    type="year"
+                    value={studentData.TSTgrady}
+                    name="TSTgrady"
+                    onChange={handleChange}
+                  ></CFormInput>
                   <CInputGroupText>Mention</CInputGroupText>
-                  <CFormSelect id="inputGroupSelectAcaStr">
-                    <option>Choose Mention...</option>
-                    <option value="1">PHD</option>
-                    <option value="2">Magister</option>
-                  </CFormSelect>
+                  <CFormSelect
+                    id="inputGroupSelectAcaStr"
+                    options={gradMentions}
+                    value={studentData.TSTgrmid}
+                    name="TSTgrmid"
+                    onChange={handleChange}
+                  ></CFormSelect>
                   <CInputGroupText>Average Grade</CInputGroupText>
-                  <CFormInput placeholder="01-20" type="number"></CFormInput>
+                  <CFormInput
+                    placeholder="01-20"
+                    type="number"
+                    value={studentData.TSTagrad}
+                    name="TSTagrad"
+                    onChange={handleChange}
+                  ></CFormInput>
                 </CInputGroup>
                 <br />
                 <CInputGroup>
                   <CInputGroupText>Student Condition</CInputGroupText>
-                  <CFormSelect id="inputGroupSelect">
+                  <CFormSelect
+                    id="inputGroupSelect"
+                    value={studentData.TSTmilpe}
+                    name="TSTmilpe"
+                    onChange={handleChange}
+                  >
                     <option>Choose Student Condition...</option>
-                    <option value="1">Civil</option>
-                    <option value="2">Militar</option>
+                    <option value="false">Civil</option>
+                    <option value="true">Militar</option>
                   </CFormSelect>
                   <CInputGroupText>Militar Component</CInputGroupText>
-                  <CFormSelect id="inputGroupSelect">
-                    <option>Choose Militar Component</option>
-                    <option value="1">Army</option>
-                    <option value="2">Aviation</option>
-                    <option value="3">Milicia</option>
-                  </CFormSelect>
-                  <CInputGroupText>Militar Component</CInputGroupText>
-                  <CFormSelect id="inputGroupSelect">
-                    <option>Choose Militar Rank</option>
-                    <option value="1">General</option>
-                    <option value="2">Liutenant</option>
-                    <option value="3">Private</option>
-                  </CFormSelect>
+                  <CFormSelect
+                    id="inputGroupSelect"
+                    options={militarComponents}
+                    onChange={handleChangeMilComponent}
+                  ></CFormSelect>
+                  <CInputGroupText>Militar Grade</CInputGroupText>
+                  <CFormSelect
+                    id="inputGroupSelect"
+                    disabled={!milCompSelected}
+                    options={militarGrades}
+                  ></CFormSelect>
                 </CInputGroup>
                 <br />
                 <CInputGroup>
                   <CInputGroupText>Initial Academic Period</CInputGroupText>
-                  <CFormSelect id="inputGroupSelect">
-                    <option>Choose Academic Period...</option>
-                    <option value="1">2024-3</option>
-                    <option value="2">2024-2</option>
-                    <option value="3">2024-1</option>
-                  </CFormSelect>
-                  <CInputGroupText>Status</CInputGroupText>
-                  <CFormSelect id="inputGroupSelect">
-                    <option>Choose Status...</option>
-                    <option value="1">Regular</option>
-                    <option value="2">Irregular</option>
-                  </CFormSelect>
-                  <CInputGroupText>Scholarship: </CInputGroupText>
-                  <CFormCheck></CFormCheck>
+                  <CFormSelect
+                    id="inputGroupSelect"
+                    options={periods}
+                    value={studentData.TMTperid}
+                    name="TMTperid"
+                    onChange={handleChange}
+                  ></CFormSelect>
                 </CInputGroup>
                 <br />
-                <CInputGroup>
-                  <CInputGroupText>Observations: </CInputGroupText>
-                  <CFormInput size="lg"></CFormInput>
-                </CInputGroup>
               </CCard>
               <CCard className="mb-4">
                 <CCardHeader>Documents</CCardHeader>
                 <div className="p-4">
-                  <CFormCheck label="Id Document Fotocopy" />
-                  <CFormCheck label="Militar Inscription Fotocopy" />
-                  <CFormCheck label="Original Academic Record" />
-                  <CFormCheck label="Photos" />
-                  <CFormCheck label="Original Copy of Birth Certificade" />
+                  <CFormCheck
+                    label="Id Document Fotocopy"
+                    value={studentData.TSTiddfo}
+                    name="TSTiddfo"
+                    onChange={handleChange}
+                  />
+                  <CFormCheck
+                    label="Militar Inscription Fotocopy"
+                    value={studentData.TSTminfo}
+                    name="TSTminfo"
+                    onChange={handleChange}
+                  />
+                  <CFormCheck
+                    label="Original Academic Record"
+                    value={studentData.TSTorare}
+                    name="TSTorare"
+                    onChange={handleChange}
+                  />
+                  <CFormCheck
+                    label="Photos"
+                    value={studentData.TSTphoto}
+                    name="TSTphoto"
+                    onChange={handleChange}
+                  />
+                  <CFormCheck
+                    label="Original Copy of Birth Certificade"
+                    value={studentData.TSTorcbc}
+                    name="TSTorcbc"
+                    onChange={handleChange}
+                  />
                 </div>
               </CCard>
               <br />
@@ -353,47 +696,58 @@ const Registration = () => {
                 <CCardHeader>Registration</CCardHeader>
                 <CInputGroup>
                   <CInputGroupText>Academic Period</CInputGroupText>
-                  <CFormSelect id="inputGroupSelect">
-                    <option>Choose Academic Period...</option>
-                    <option value="1">2024-3</option>
-                    <option value="2">2024-2</option>
-                    <option value="3">2024-1</option>
-                  </CFormSelect>
+                  <CFormSelect
+                    id="inputGroupSelect"
+                    options={periods}
+                    value={studentData.TMTperid}
+                    name="TMTperid"
+                    onChange={handleChange}
+                  ></CFormSelect>
                   <CInputGroupText>Carrer Code</CInputGroupText>
-                  <CFormSelect id="inputGroupSelect">
-                    <option>Choose Career Code...</option>
-                    <option value="1">2701</option>
-                    <option value="2">2232</option>
-                    <option value="3">0039</option>
-                  </CFormSelect>
-                  <CInputGroupText>Initial Academic Period</CInputGroupText>
-                  <CFormSelect id="inputGroupSelect">
-                    <option>Choose Academic Period...</option>
-                    <option value="1">2024-3</option>
-                    <option value="2">2024-2</option>
-                    <option value="3">2024-1</option>
-                  </CFormSelect>
+                  <CFormSelect
+                    id="inputGroupSelect"
+                    options={careerCods}
+                    value={studentData.TMTproid}
+                    name="TMTproid"
+                    onChange={handleChange}
+                  ></CFormSelect>
                 </CInputGroup>
                 <br />
                 <CInputGroup>
                   <CInputGroupText>Registered_by: </CInputGroupText>
-                  <CFormSelect id="inputGroupSelect">
-                    <option>Choose Staff...</option>
-                    <option value="1">Sheila Casique</option>
-                  </CFormSelect>
+                  <CFormSelect
+                    id="inputGroupSelect"
+                    options={secretaryStaff}
+                    value={studentData.TMTregby}
+                    name="TMTregby"
+                    onChange={handleChange}
+                  ></CFormSelect>
                 </CInputGroup>
               </CCard>
               <CCard className="mb-4">
                 <CCardHeader>Payment Information</CCardHeader>
                 <CInputGroup>
                   <CInputGroupText>Payment Date</CInputGroupText>
-                  <CFormInput type="date"></CFormInput>
-                  <CInputGroupText>N° Voucher</CInputGroupText>
-                  <CFormInput type="number"></CFormInput>
+                  <CFormInput
+                    type="date"
+                    value={studentData.TMTpadat}
+                    name="TMTpadat"
+                    onChange={handleChange}
+                  ></CFormInput>
                   <CInputGroupText>N° Receipt</CInputGroupText>
-                  <CFormInput type="number"></CFormInput>
+                  <CFormInput
+                    type="number"
+                    value={studentData.TMTnrece}
+                    name="TMTnrece"
+                    onChange={handleChange}
+                  ></CFormInput>
                   <CInputGroupText>Amount</CInputGroupText>
-                  <CFormInput type="number"></CFormInput>
+                  <CFormInput
+                    type="number"
+                    value={studentData.TMTpaamo}
+                    name="TMTpaamo"
+                    onChange={handleChange}
+                  ></CFormInput>
                 </CInputGroup>
                 <br />
                 <CInputGroup>
@@ -406,7 +760,7 @@ const Registration = () => {
                 <CTab itemKey="AData">
                   <CButton color="primary">Anterior</CButton>
                 </CTab>
-                <CButton color="primary">Registrar</CButton>
+                <CButton color="primary" type='submit'>Registrar</CButton>
               </div>
             </CTabPanel>
           </CTabContent>

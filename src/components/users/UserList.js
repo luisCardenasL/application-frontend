@@ -19,39 +19,30 @@ const UserList = ({ users }) => {
     <>
       <CTableBody>
         {users.map((item) => (
-          <CTableRow v-for="item in tableItems" key={item.id}>
-            <CTableDataCell className="text-center">
-              <div>{item.id}</div>
-            </CTableDataCell>
-            <CTableDataCell>
-              <div>{item.name}</div>
-              <div className="small text-body-secondary text-nowrap">
-                {' '}
-                Registered: {GetTimestampText(item.created_at)}
-              </div>
-            </CTableDataCell>
-            <CTableDataCell className="text-center">
-              <div>{item.email}</div>
-            </CTableDataCell>
-            <CTableDataCell>
-              <div>{GetTimestampText(item.updated_at)}</div>
-            </CTableDataCell>
-            <CTableDataCell className="text-center">
-              <GetUserRoleText user_id={item.role_id} />
-            </CTableDataCell>
-            <CTableDataCell className="text-center">
-              <div>{item.status}</div>
-            </CTableDataCell>
-            <CTableDataCell className="text-center">
-              <Link to={`/users/${item.uid}`}>
-                <CIcon icon={cilPen} size="lg" color="primary" />
-              </Link>
-            </CTableDataCell>
-            <CTableDataCell className="text-center">
-              <UserDeleteModal id = {item.id} />
-            </CTableDataCell>
-          </CTableRow>
-        ))}
+                  <CTableRow v-for="item in tableItems" key={item.id_doc}>
+                    <CTableDataCell className="text-center">
+                      <div>{item.id_doc}</div>
+                    </CTableDataCell>
+                    <CTableDataCell>
+                      <div>{item.cname}</div>
+                    </CTableDataCell>
+                    <CTableDataCell className="text-center">
+                      <div>{item.email}</div>
+                    </CTableDataCell>
+                    <CTableDataCell className="text-center">
+                      <div>{item.userrole}</div>
+                    </CTableDataCell>
+                    <CTableDataCell className="text-center">
+                      <div>{item.status}</div>
+                    </CTableDataCell>
+                    <CTableDataCell className="text-center">
+                      <Link to={`/teacher/${item.uid}`}>
+                        <CIcon icon={cilPen} size="lg" color="primary" />
+                      </Link>
+                    </CTableDataCell>
+                    <CTableDataCell className="text-center"></CTableDataCell>
+                  </CTableRow>
+                ))}
       </CTableBody>
     </>
   )

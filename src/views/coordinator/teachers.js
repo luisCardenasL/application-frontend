@@ -1,6 +1,9 @@
 import React from 'react'
 import classNames from 'classnames'
 
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
+
 import {
   CAvatar,
   CButton,
@@ -37,7 +40,7 @@ import { cilPeople, cilLockLocked, cilUser } from '@coreui/icons'
 import { useState, useEffect } from 'react'
 import helpFetch from '../../hooks/helpFetch'
 import Loader from '../../components/Loader'
-import TeacherList from "../../components/coordinator/teacherList"
+import TeacherList from '../../components/coordinator/teacherList'
 
 const Teachers = () => {
   const [teachers, setTeachers] = useState([])
@@ -55,7 +58,7 @@ const Teachers = () => {
     })
   }
 
-  const getTeachers = async() => {
+  const getTeachers = async () => {
     await API.get('teachers').then((response) => {
       console.log(response.msg)
       if (!response.error) setTeachers(response.msg)
@@ -104,6 +107,8 @@ const Teachers = () => {
         TUSpawrd: '',
       })
     }
+
+    setVisibleLg(!visibleLg)
   }
 
   const handleChange = (e) => {
@@ -111,6 +116,15 @@ const Teachers = () => {
       ...teacherData,
       [e.target.name]: e.target.value,
     })
+  }
+
+  const handleChangeTelf = (value) => {
+    setTeacherData({
+      ...teacherData,
+      TSFctelf: value,
+    })
+    console.log(value)
+    console.log(teacherData)
   }
 
   const handleChangeCheck = (e) => {
@@ -229,13 +243,12 @@ const Teachers = () => {
             <br />
             <CInputGroup>
               <CInputGroupText>Tel</CInputGroupText>
-              <CFormInput
-                type="tel"
-                name="TSFctelf"
+              <PhoneInput
+                className="form-control p-0"
+                placeholder="+584120688647"
+                defaultCountry="VE"
                 value={teacherData.TSFctelf}
-                onChange={handleChange}
-                placeholder="+584121234567"
-                autoComplete="tel"
+                onChange={handleChangeTelf}
               />
             </CInputGroup>
             <br />
@@ -299,7 +312,7 @@ const Teachers = () => {
                 <CTableHeaderCell className="bg-body-tertiary">Delete</CTableHeaderCell>
               </CTableRow>
             </CTableHead>
-            {teachers && <TeacherList teachers = {teachers}></TeacherList>}
+            {teachers && <TeacherList teachers={teachers}></TeacherList>}
           </CTable>
         </CCardBody>
       </CCard>
