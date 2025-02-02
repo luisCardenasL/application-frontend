@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 const helpFetch = () => {
-  const url = 'backend-application-production-b7df.up.railway.app'
+  const url = 'https://backend-application-production-b7df.up.railway.app/'
   const customFetch = (endpoint, options = {}) => {
     options.method = options.method || 'GET'
     options.headers = {
