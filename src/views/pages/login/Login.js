@@ -40,6 +40,7 @@ const Login = () => {
   },[])
 
   useEffect(() => {
+    console.log(isLogged)
     if(isLogged) return navigate('/dashboard')
   },[isLogged])
 

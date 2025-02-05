@@ -92,7 +92,7 @@ const Registration = () => {
     TMTpadat: '',
     TMTnrece: 0,
     TMTpaamo: 0,
-    TMTregby: 0,
+    TMTregby: 1,
   })
 
   const getNationalities = async () => {
