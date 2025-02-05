@@ -9,7 +9,7 @@ const helpFetch = () => {
       
     }
     options.credentials = 'include'
-    options.mode = 'no-cors'
+    options.mode = 'cors'
 
     if (options.body) {
       options.body = JSON.stringify(options.body)
