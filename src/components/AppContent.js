@@ -26,7 +26,7 @@ const AppContent = () => {
   }, [])
 
   useEffect(() => {
-    if (!isLogged) return navigate('/login')
+    if (!isLogged){setLogged(true)  ;return navigate('/login')}
   }, [isLogged])
 
   return (
