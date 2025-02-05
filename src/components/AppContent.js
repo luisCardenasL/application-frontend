@@ -15,10 +15,6 @@ const AppContent = () => {
   let navigate = useNavigate()
 
   const verifyUser = async () => {
-    await API.get('verify').then((resp) => {
-      if (!resp.error) setLogged(true)
-      else setLogged(false)
-    })
   }
 
   useEffect(() => {

@@ -35,12 +35,7 @@ const AppHeaderDropdown = () => {
   let navigate = useNavigate();
 
   const logout = async() => {
-    await API.get('logout').then((resp) => {
-      if(!resp.error){
-        console.log('logout')
-        return navigate()
-      }
-    })
+
   }
 
   return (
