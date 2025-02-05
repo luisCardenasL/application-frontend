@@ -6,6 +6,7 @@ const helpFetch = () => {
     options.method = options.method || 'GET'
     options.headers = {
       'content-type': 'application/json',
+      
     }
     options.credentials = 'include'
     options.mode = 'cors'

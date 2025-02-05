@@ -29,18 +29,6 @@ import avatar8 from './../../assets/images/avatars/8.jpg'
 import helpFetch from '../../hooks/helpFetch'
 
 const AppHeaderDropdown = () => {
-  const API = helpFetch()
-
-  let navigate = useNavigate()
-
-  const logout = async () => {
-    await API.get('logout').then((resp) => {
-      if (!resp.error) {
-        console.log('logout')
-        return navigate('/login')
-      }
-    })
-  }
 
   return (
     <CDropdown variant="nav-item">
