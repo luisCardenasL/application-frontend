@@ -1,11 +1,33 @@
 import React, { Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { CContainer, CSpinner } from '@coreui/react'
+import { useNavigate } from 'react-router-dom'
 
 // routes config
 import routes from '../routes'
+import helpFetch from '../hooks/helpFetch'
 
 const AppContent = () => {
+  const API = helpFetch()
+
+  const [isLogged, setLogged] = useState(true)
+  let navigate = useNavigate()
+
+  const verifyUser = async () => {
+    await API.get('verify').then((resp) => {
+      if (!resp.error) setLogged(true)
+      else setLogged(false)
+    })
+  }
+
+  useEffect(() => {
+    verifyUser()
+  }, [])
+
+  useEffect(() => {
+    if (!isLogged) return navigate('/login')
+  }, [isLogged])
+
   return (
     <CContainer className="px-4" lg>
       <Suspense fallback={<CSpinner color="primary" />}>
