@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 
@@ -15,15 +15,10 @@ import {
   CCol,
   CForm,
   CFormInput,
-  CProgress,
-  CRow,
-  CSpinner,
-  CTable,
-  CTableBody,
-  CTableDataCell,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow,
+  CToast,
+  CToastBody,
+  CToastHeader,
+  CToaster,
   CInputGroup,
   CInputGroupText,
   CFormSelect,
@@ -57,6 +52,8 @@ const Registration = () => {
   const [periods, setPeriods] = useState([])
   const [careerCods, setCareerCods] = useState([])
   const [secretaryStaff, setSecretaryStaff] = useState([])
+  const [toast, addToast] = useState()
+  const toaster = useRef(null)
   const API = helpFetch()
 
   const [studentData, setStudentData] = useState({
@@ -246,52 +243,54 @@ const Registration = () => {
       body: student,
     }
     API.post('students', options).then((resp) => {
-      if (!resp.error) console.log("Estudiante Agregado")
+      if (!resp.error) {
+        addToast(successToast)
+        setStudentData({
+          TSTcodst: '',
+          TSTiddoc: null,
+          TSTfirna: '',
+          TSTmidna: '',
+          TSTthrna: '',
+          TSTfltna: '',
+          TSTsltna: '',
+          TSTgenst: 'M',
+          TSTmstid: 0,
+          TSTnacid: 0,
+          TSTrstid: 0,
+          TSTbidat: '',
+          TSTresad: '',
+          TSTparid: 0,
+          TSTemail: '',
+          TSTretel: '',
+          TSTcetel: '',
+          TSTmilpe: false,
+          TSTiddfo: false,
+          TSTminfo: false,
+          TSTorare: false,
+          TSTphoto: false,
+          TSTorcbc: false,
+          TSTtsang: 'A+',
+          TSTtyidd: 'V',
+          TSTuniid: 0,
+          TSTgrady: '',
+          TSTagrad: '',
+          TSTgrmid: 0,
+          TMTperid: 0,
+          TMTproid: 0,
+          TMTschsh: false,
+          TMTpadat: '',
+          TMTnrece: 0,
+          TMTpaamo: 0,
+          TMTregby: 0,
+        })
+      } else addToast(failedToast)
     })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-      studentData.TSTcodst = `${studentData.TMTperid}-${studentData.TSTtyidd}-${studentData.TSTiddoc}`
-      addStudent(studentData)
-      setStudentData({
-        TSTcodst: '',
-        TSTiddoc: null,
-        TSTfirna: '',
-        TSTmidna: '',
-        TSTthrna: '',
-        TSTfltna: '',
-        TSTsltna: '',
-        TSTgenst: 'M',
-        TSTmstid: 0,
-        TSTnacid: 0,
-        TSTrstid: 0,
-        TSTbidat: '',
-        TSTresad: '',
-        TSTparid: 0,
-        TSTemail: '',
-        TSTretel: '',
-        TSTcetel: '',
-        TSTmilpe: false,
-        TSTiddfo: false,
-        TSTminfo: false,
-        TSTorare: false,
-        TSTphoto: false,
-        TSTorcbc: false,
-        TSTtsang: 'A+',
-        TSTtyidd: 'V',
-        TSTuniid: 0,
-        TSTgrady: '',
-        TSTagrad: '',
-        TSTgrmid: 0,
-        TMTperid: 0,
-        TMTproid: 0,
-        TMTschsh: false,
-        TMTpadat: '',
-        TMTnrece: 0,
-        TMTpaamo: 0,
-        TMTregby: 0,
-      })
+    studentData.TSTcodst = `${studentData.TMTperid}-${studentData.TSTtyidd}-${studentData.TSTiddoc}`
+    addStudent(studentData)
   }
 
   useEffect(() => {
@@ -305,6 +304,46 @@ const Registration = () => {
     getCareerCods()
     getSecretaryStaff()
   }, [])
+
+  const successToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <svg
+          className="rounded me-2"
+          width="20"
+          height="20"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false"
+          role="img"
+        >
+          <rect width="100%" height="100%" fill="#007aff"></rect>
+        </svg>
+        <div className="fw-bold me-auto">Successful Registration</div>
+      </CToastHeader>
+      <CToastBody>THe student has been registered successfully</CToastBody>
+    </CToast>
+  )
+
+  const failedToast = (
+    <CToast>
+      <CToastHeader closeButton>
+        <svg
+          className="rounded me-2"
+          width="20"
+          height="20"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false"
+          role="img"
+        >
+          <rect width="100%" height="100%" fill="#007aff"></rect>
+        </svg>
+        <div className="fw-bold me-auto">Failed Registration</div>
+      </CToastHeader>
+      <CToastBody>Something went wrong, try again</CToastBody>
+    </CToast>
+  )
 
   return (
     <>
@@ -760,7 +799,10 @@ const Registration = () => {
                 <CTab itemKey="AData">
                   <CButton color="primary">Anterior</CButton>
                 </CTab>
-                <CButton color="primary" type='submit'>Registrar</CButton>
+                <CButton color="primary" type="submit">
+                  Registrar
+                </CButton>
+                <CToaster className="p-3" placement="top-end" push={toast} ref={toaster} />
               </div>
             </CTabPanel>
           </CTabContent>

@@ -63,7 +63,6 @@ const Users = () => {
     TSFctelf: '',
     TSFmilbo: false,
     TSFstfst: 'active',
-    TUSpawrd: '',
     TUSrolid: null,
   })
 
@@ -124,7 +123,6 @@ const Users = () => {
         TSFctelf: '',
         TSFmilbo: false,
         TSFstfst: 'active',
-        TUSpawrd: '',
         TUSrolid: null,
       })
     }
@@ -160,7 +158,9 @@ const Users = () => {
       body: user,
     }
     API.post('users', options).then((resp) => {
-      if (!resp.error) setUsers([...users, user])
+      if (!resp.error) {setUsers([...users, user])
+        getUsers();
+      }
     })
   }
 
@@ -298,27 +298,6 @@ const Users = () => {
                 onChange={handleChange}
                 placeholder="Email"
                 autoComplete="email"
-              />
-            </CInputGroup>
-            <br />
-            <CInputGroup>
-              <CInputGroupText>
-                <CIcon icon={cilLockLocked} />
-              </CInputGroupText>
-              <CFormInput
-                type="password"
-                name="TUSpawrd"
-                onChange={handleChange}
-                placeholder="Password"
-                autoComplete="new-password"
-              />
-              <CInputGroupText>
-                <CIcon icon={cilLockLocked} />
-              </CInputGroupText>
-              <CFormInput
-                type="password"
-                placeholder="Repeat password"
-                autoComplete="new-password"
               />
             </CInputGroup>
             <br />

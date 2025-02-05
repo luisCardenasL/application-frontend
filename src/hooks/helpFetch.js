@@ -7,6 +7,7 @@ const helpFetch = () => {
     options.headers = {
       'content-type': 'application/json',
     }
+    options.credentials = 'include'
     options.mode = 'cors'
 
     if (options.body) {
@@ -23,6 +24,7 @@ const helpFetch = () => {
               error: true,
               status: res.status,
               statusText: res.statusText,
+              msg: res.msg,
             })
       })
       .catch((error) => {
@@ -30,6 +32,7 @@ const helpFetch = () => {
         return {
           error: true,
           status: error.status,
+          msg: error.msg,
         }
       })
   }
@@ -39,31 +42,11 @@ const helpFetch = () => {
   const post = (endpoint, options) => {
     options.method = 'POST'
     return customFetch(endpoint, options)
-      .then((resp) => {
-        console.log(resp)
-      })
-      .catch((error) => {
-        console.error('Error Post Request')
-        return {
-          error: true,
-          status: error.status,
-        }
-      })
   }
 
   const put = (endpoint, options) => {
     options.method = 'PUT'
     return customFetch(`${endpoint}`, options)
-      .then((resp) => {
-        console.log(resp)
-      })
-      .catch((error) => {
-        console.error('Error Put Request')
-        return {
-          error: true,
-          status: error.status,
-        }
-      })
   }
 
   const delet = (endpoint, id) => {
@@ -71,16 +54,6 @@ const helpFetch = () => {
       method: 'DELETE',
     }
     return customFetch(`${endpoint}/${id}`, options)
-      .then((resp) => {
-        console.log(resp)
-      })
-      .catch((error) => {
-        console.error('Error Delete Request')
-        return {
-          error: true,
-          status: error.status,
-        }
-      })
   }
 
   return { get, post, put, delet }

@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -15,8 +16,58 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import react from 'react'
+import helpFetch from '../../../hooks/helpFetch'
 
 const Login = () => {
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  })
+  const [isLogged,setLogged] = useState(false);
+  let navigate = useNavigate();
+
+  const API = helpFetch()
+
+  const verifyUser = async() => {
+    await API.get('verify').then((resp) => {
+      if(!resp.error) setLogged(true)
+    })
+  }
+
+  useEffect(()=> {
+    verifyUser()
+  },[])
+
+  useEffect(() => {
+    if(isLogged) return navigate('/dashboard')
+  },[isLogged])
+
+  const login = async () => {
+    const options = {
+      body: user,
+    }
+    await API.post('login',options).then((resp) => {
+      if(!resp.error) {
+        console.log("logeado")
+        setLogged(true)
+        
+      }
+    })
+  }
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    login();
+  }
+
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -25,39 +76,50 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
+                  <CForm onSubmit={handleSubmit}>
                     <h1>Login</h1>
                     <p className="text-body-secondary">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Email" autoComplete="email" />
+                      <CFormInput placeholder="Email"
+                      name='email'
+                       onChange={handleChange}
+                       value={user.email}
+                       autoComplete="email" />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
                         <CIcon icon={cilLockLocked} />
                       </CInputGroupText>
                       <CFormInput
+                        name='password'
                         type="password"
+                        value={user.password}
+                        onChange={handleChange}
                         placeholder="Password"
                         autoComplete="current-password"
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                      <Link to="/dashboard">
-                        <CButton color="primary" className="px-4" active tabIndex={-1}>
+                        <CButton
+                          color="primary"
+                          type="submit"
+                          className="px-4"
+                          active
+                          tabIndex={-1}
+                        >
                           Login
                         </CButton>
-                      </Link>
                       </CCol>
                       <CCol xs={6} className="text-right">
-                      <Link to="/recuperation">
-                        <CButton color="link" className="px-0">
-                          Forgot password?
-                        </CButton>
-                      </Link>
+                        <Link to="/recuperation">
+                          <CButton color="link" className="px-0">
+                            Forgot password?
+                          </CButton>
+                        </Link>
                       </CCol>
                     </CRow>
                   </CForm>

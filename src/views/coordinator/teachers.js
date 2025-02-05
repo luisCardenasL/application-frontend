@@ -77,7 +77,6 @@ const Teachers = () => {
     TSFctelf: '',
     TSFmilbo: false,
     TSFstfst: 'active',
-    TUSpawrd: '',
   })
 
   useEffect(() => {
@@ -104,7 +103,6 @@ const Teachers = () => {
         TSFctelf: '',
         TSFmilbo: false,
         TSFstfst: 'active',
-        TUSpawrd: '',
       })
     }
 
@@ -140,7 +138,10 @@ const Teachers = () => {
       body: teacher,
     }
     API.post('addTeacher', options).then((resp) => {
-      if (!resp.error) setTeachers([...teachers, teacher])
+      if (!resp.error) {
+        setTeachers([...teachers, teacher])
+        getTeachers()
+      }
     })
   }
 
@@ -261,27 +262,6 @@ const Teachers = () => {
                 onChange={handleChange}
                 placeholder="Email"
                 autoComplete="email"
-              />
-            </CInputGroup>
-            <br />
-            <CInputGroup>
-              <CInputGroupText>
-                <CIcon icon={cilLockLocked} />
-              </CInputGroupText>
-              <CFormInput
-                type="password"
-                name="TUSpawrd"
-                onChange={handleChange}
-                placeholder="Password"
-                autoComplete="new-password"
-              />
-              <CInputGroupText>
-                <CIcon icon={cilLockLocked} />
-              </CInputGroupText>
-              <CFormInput
-                type="password"
-                placeholder="Repeat password"
-                autoComplete="new-password"
               />
             </CInputGroup>
             <br />
