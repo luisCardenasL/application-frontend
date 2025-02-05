@@ -22,7 +22,7 @@ const AppContent = () => {
   }
 
   useEffect(() => {
-    verifyUser()
+    //verifyUser()
   }, [])
 
   useEffect(() => {
