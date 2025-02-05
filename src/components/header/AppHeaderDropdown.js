@@ -30,6 +30,19 @@ import helpFetch from '../../hooks/helpFetch'
 
 const AppHeaderDropdown = () => {
 
+  const API = helpFetch();
+
+  let navigate = useNavigate();
+
+  const logout = async() => {
+    await API.get('logout').then((resp) => {
+      if(!resp.error){
+        console.log('logout')
+        return navigate()
+      }
+    })
+  }
+
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
@@ -47,7 +60,7 @@ const AppHeaderDropdown = () => {
         </CDropdownItem>
         <CDropdownDivider />
         <CDropdownItem href="/#/login">
-          <CIcon icon={cilLockLocked} className="me-2" onClick={logout()} />
+          <CIcon icon={cilLockLocked} className="me-2"  onClick={logout()}/>
           Sign Out
         </CDropdownItem>
       </CDropdownMenu>
