@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
 
 const helpFetch = () => {
-  const url = 'https://backend-application-production-b7df.up.railway.app/'
+  const url = 'http://localhost:6060/'
   const customFetch = (endpoint, options = {}) => {
     options.method = options.method || 'GET'
     options.headers = {
       'content-type': 'application/json',
-      
     }
     options.credentials = 'include'
     options.mode = 'cors'
@@ -15,7 +14,7 @@ const helpFetch = () => {
       options.body = JSON.stringify(options.body)
     }
 
-    console.log(endpoint,' ',options)
+    console.log(endpoint, ' ', options)
 
     return fetch(`${url}${endpoint}`, options)
       .then((res) => {

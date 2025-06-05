@@ -52,7 +52,6 @@ const Login = () => {
       if(!resp.error) {
         console.log("logeado")
         setLogged(true)
-        
       }
     })
   }
