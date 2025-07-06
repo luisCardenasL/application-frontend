@@ -59,18 +59,18 @@ const adminNav = [
     items: [
       {
         component: CNavItem,
-        name: 'Vizualizar Programa',
+        name: 'Visualizar Programa',
         to: '#',
       },
       {
         component: CNavItem,
         name: 'Crear Programa',
-        to: '#',
+        to: '/programs/create',
       },
       {
         component: CNavItem,
         name: 'Agregar Carrera',
-        to: '#',
+        to: '/careers/add',
       },
       {
         component: CNavItem,

@@ -14,8 +14,6 @@ const helpFetch = () => {
       options.body = JSON.stringify(options.body)
     }
 
-    console.log(endpoint, ' ', options)
-
     return fetch(`${url}${endpoint}`, options)
       .then((res) => {
         return res.ok

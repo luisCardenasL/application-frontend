@@ -71,21 +71,24 @@ const AppSidebar = () => {
             else if(isTeacher) {
               setNavigation(navi.teacherNav)
             }
-
-      console.log(navigation)
-      console.log(navi._nav)
     }
   
     useEffect(() => {
       
       verifyAdmin()
-      verifySecretary()
-      verifyCoordinator()
-      verifyTeacher()
+      if(isAdmin) 
+      {
+        verifySecretary()
+      }
+        else if(isSecretary) {
+          verifyCoordinator()
+        }
+          else if(isCoordinator){
+            verifyTeacher()
+          }
     }, [])
 
     useEffect(() => {
-      console.log(isAdmin,isSecretary,isCoordinator,isTeacher)
       arrangeNav()
     },[verifyAdmin,verifySecretary,verifyTeacher,verifyCoordinator])
   
