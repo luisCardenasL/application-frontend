@@ -22,11 +22,11 @@ import {
   CInputGroup,
   CInputGroupText,
   CFormSelect,
-  CTabs,
-  CTabList,
-  CTab,
+  CNav,
+  CNavItem,
+  CNavLink,
   CTabContent,
-  CTabPanel,
+  CTabPane,
   CFormCheck,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
@@ -55,6 +55,7 @@ const Registration = () => {
   const [toast, addToast] = useState()
   const toaster = useRef(null)
   const API = helpFetch()
+  const [activeTab, setActiveTab] = useState(1)
 
   const [studentData, setStudentData] = useState({
     TSTcodst: '',
@@ -347,466 +348,467 @@ const Registration = () => {
 
   return (
     <>
+      <CNav variant="tabs" className="mb-4">
+        <CNavItem>
+          <CNavLink active={activeTab === 1} onClick={() => setActiveTab(1)}>
+            Datos Personales
+          </CNavLink>
+        </CNavItem>
+        <CNavItem>
+          <CNavLink active={activeTab === 2} onClick={() => setActiveTab(2)}>
+            Información de Residencia y Contacto
+          </CNavLink>
+        </CNavItem>
+        <CNavItem>
+          <CNavLink active={activeTab === 3} onClick={() => setActiveTab(3)}>
+            Datos Académicos
+          </CNavLink>
+        </CNavItem>
+        <CNavItem>
+          <CNavLink active={activeTab === 4} onClick={() => setActiveTab(4)}>
+            Inscripción
+          </CNavLink>
+        </CNavItem>
+      </CNav>
       <CForm className="p-4" onSubmit={handleSubmit}>
-        <CTabs activeItemKey="PData">
-          <CTabList variant="pills" layout="fill">
-            <CTab itemKey="PData">Datos Personales</CTab>
-            <CTab itemKey="CData">Información de Residencia y Contacto</CTab>
-            <CTab itemKey="AData">Datos Academicos</CTab>
-            <CTab itemKey="Register">Inscripción</CTab>
-          </CTabList>
-          <CTabContent>
-            <CTabPanel transition className="p-3" itemKey="PData">
-              <CCard className="mb-4">
-                <CCardHeader>Informacion Personal</CCardHeader>
+        <CTabContent>
+          <CTabPane visible={activeTab === 1}>
+            <CCard className="mb-4">
+              <CCardHeader>Informacion Personal</CCardHeader>
 
-                <CInputGroup>
-                  <CInputGroupText>
-                    <CIcon icon={cilUser} />
-                  </CInputGroupText>
-                  <CFormInput
-                    value={studentData.TSTfirna}
-                    name="TSTfirna"
-                    onChange={handleChange}
-                    type="text"
-                    placeholder="Primer Nombre"
-                    autoComplete="name"
-                  />
-                  <CFormInput
-                    value={studentData.TSTmidna}
-                    name="TSTmidna"
-                    onChange={handleChange}
-                    type="text"
-                    placeholder="Segundo Nombre"
-                    autoComplete="name"
-                  />
-                  <CFormInput
-                    value={studentData.TSTthrna}
-                    name="TSTthrna"
-                    onChange={handleChange}
-                    type="text"
-                    placeholder="Tercer Nombre"
-                    autoComplete="name"
-                  />
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CFormInput
-                    value={studentData.TSTfltna}
-                    name="TSTfltna"
-                    onChange={handleChange}
-                    type="text"
-                    placeholder="Primer Apellido"
-                    autoComplete="lastname"
-                  />
-                  <CFormInput
-                    value={studentData.TSTsltna}
-                    name="TSTsltna"
-                    onChange={handleChange}
-                    type="text"
-                    placeholder="Segundo Apellido"
-                    autoComplete="lastname"
-                  />
-                </CInputGroup>
-                <br></br>
-                <CInputGroup>
-                  <CInputGroupText>Documento de Identificación</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelectID"
-                    value={studentData.TSTtyidd}
-                    name="TSTtyidd"
-                    onChange={handleChange}
-                  >
-                    <option>Elija el Tipo de Documento...</option>
-                    <option value="V">Venezolano (V)</option>
-                    <option value="E">Extranjero (E)</option>
-                    <option value="Passport">Pasaporte</option>
-                  </CFormSelect>
-                  <CFormInput
-                    value={studentData.TSTiddoc}
-                    name="TSTiddoc"
-                    onChange={handleChange}
-                    type="number"
-                    placeholder="Número de Documento"
-                  />
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CInputGroupText>Nacionalidad</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelectNationality"
-                    value={studentData.TSTnacid}
-                    name="TSTnacid"
-                    onChange={handleChange}
-                    options={nationalities}
-                  ></CFormSelect>
-                </CInputGroup>
-                <br />
-
-                <CInputGroup className="mb-3">
-                  <CInputGroupText as="label">Género</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelectGender"
-                    value={studentData.TSTgenst}
-                    name="TSTgenst"
-                    onChange={handleChange}
-                  >
-                    <option>Seleccione el Género...</option>
-                    <option value="M">Masculino</option>
-                    <option value="F">Femenino</option>
-                  </CFormSelect>
-                </CInputGroup>
-                <CInputGroup>
-                  <CInputGroupText>Fecha de Nacimiento</CInputGroupText>
-                  <CFormInput
-                    type="date"
-                    placeholder="Birth dare"
-                    value={studentData.TSTbidat}
-                    name="TSTbidat"
-                    onChange={handleChange}
-                  />
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CInputGroupText as="label">Estado Civil</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelectBlood"
-                    value={studentData.TSTmstid}
-                    name="TSTmstid"
-                    onChange={handleChange}
-                    options={civilStatus}
-                  ></CFormSelect>
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CInputGroupText as="label">Tipo de Sangre</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelectBlood"
-                    value={studentData.TSTtsang}
-                    name="TSTtsang"
-                    onChange={handleChange}
-                  >
-                    <option>Seleccione el tipo de Sangre</option>
-                    <option value="A+">A+</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B-">B-</option>
-                    <option value="O+">O+</option>
-                    <option value="O-">O-</option>
-                    <option value="AB+">AB+</option>
-                    <option value="AB-">AB-</option>
-                  </CFormSelect>
-                </CInputGroup>
-              </CCard>
+              <CInputGroup>
+                <CInputGroupText>
+                  <CIcon icon={cilUser} />
+                </CInputGroupText>
+                <CFormInput
+                  value={studentData.TSTfirna}
+                  name="TSTfirna"
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Primer Nombre"
+                  autoComplete="name"
+                />
+                <CFormInput
+                  value={studentData.TSTmidna}
+                  name="TSTmidna"
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Segundo Nombre"
+                  autoComplete="name"
+                />
+                <CFormInput
+                  value={studentData.TSTthrna}
+                  name="TSTthrna"
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Tercer Nombre"
+                  autoComplete="name"
+                />
+              </CInputGroup>
               <br />
-              <div className="d-flex justify-content-end">
-                <CTab itemKey="CData">
-                  <CButton color="primary">Siguiente</CButton>
-                </CTab>
-              </div>
-            </CTabPanel>
-            <CTabPanel transition className="p-3" itemKey="CData">
-              <CCard className="mb-4">
-                <CCardHeader>Información de Residencia</CCardHeader>
-                <CInputGroup>
-                  <CInputGroupText>Lugar de Residencia</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelectState"
-                    options={states}
-                    onChange={handleChangeState}
-                  ></CFormSelect>
-                  <CFormSelect
-                    id="inputGroupSelectMunicipality"
-                    options={municipalities}
-                    disabled={!stateSelected}
-                    onChange={handleChangeMunicipality}
-                  ></CFormSelect>
-                  <CFormSelect
-                    id="inputGroupSelectParroquies"
-                    options={parroquies}
-                    disabled={!munSelected}
-                    value={studentData.TSTparid}
-                    name="TSTparid"
-                    onChange={handleChange}
-                  ></CFormSelect>
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CInputGroupText>Estado de Residencia</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelectResStatus"
-                    value={studentData.TSTrstid}
-                    name="TSTrstid"
-                    onChange={handleChange}
-                  >
-                    <option>Seleccione el Estado de Residencia...</option>
-                    <option value="1">Permanente</option>
-                    <option value="2">Temporal</option>
-                  </CFormSelect>
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CInputGroupText>Dirección</CInputGroupText>
-                  <CFormInput
-                    type="text"
-                    placeholder="Ej. Avenida Principal Los Naranjos Calle B "
-                    value={studentData.TSTresad}
-                    name="TSTresad"
-                    onChange={handleChange}
-                  ></CFormInput>
-                </CInputGroup>
-                <br />
-              </CCard>
-              <CCard className="mb-4">
-                <CCardHeader>Información de Contacto</CCardHeader>
-                <CInputGroup>
-                  <CInputGroupText>Correo</CInputGroupText>
-                  <CFormInput
-                    type="email"
-                    placeholder="example@email.com"
-                    value={studentData.TSTemail}
-                    name="TSTemail"
-                    onChange={handleChange}
-                  ></CFormInput>
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CInputGroupText>Teléfono Celular</CInputGroupText>
-                  <PhoneInput
-                    className="form-control p-0"
-                    placeholder="Ingresar N° de Teléfono"
-                    defaultCountry="VE"
-                    value={studentData.TSTcetel}
-                    name="TSTcetel"
-                    onChange={handleChangeTelf1}
-                  />
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CInputGroupText>Teléfono de Residencia</CInputGroupText>
-                  <PhoneInput
-                    className="form-control p-0"
-                    placeholder="Ingresar N° de Teléfono"
-                    defaultCountry="VE"
-                    value={studentData.TSTretel}
-                    name="TSTretel"
-                    onChange={handleChangeTelf2}
-                  />
-                </CInputGroup>
-                <br />
-              </CCard>
+              <CInputGroup>
+                <CFormInput
+                  value={studentData.TSTfltna}
+                  name="TSTfltna"
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Primer Apellido"
+                  autoComplete="lastname"
+                />
+                <CFormInput
+                  value={studentData.TSTsltna}
+                  name="TSTsltna"
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Segundo Apellido"
+                  autoComplete="lastname"
+                />
+              </CInputGroup>
               <br></br>
-              <div className="d-flex justify-content-between">
-                <CTab itemKey="PData">
-                  <CButton color="primary">Anterior</CButton>
-                </CTab>
-                <CTab itemKey="AData">
-                  <CButton color="primary">Siguiente</CButton>
-                </CTab>
-              </div>
-            </CTabPanel>
-            <CTabPanel transition className="p-3" itemKey="AData">
-              <CCard className="mb-4">
-                <CCardHeader>Información Académica</CCardHeader>
-                <CInputGroup>
-                  <CInputGroupText>Universidad de Procedencia</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelectAcaStr"
-                    options={universities}
-                    value={studentData.TSTuniid}
-                    name="TSTuniid"
-                    onChange={handleChange}
-                  ></CFormSelect>
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CInputGroupText>Año de Graduación</CInputGroupText>
-                  <CFormInput
-                    placeholder="20XX"
-                    type="year"
-                    value={studentData.TSTgrady}
-                    name="TSTgrady"
-                    onChange={handleChange}
-                  ></CFormInput>
-                  <CInputGroupText>Mención</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelectAcaStr"
-                    options={gradMentions}
-                    value={studentData.TSTgrmid}
-                    name="TSTgrmid"
-                    onChange={handleChange}
-                  ></CFormSelect>
-                  <CInputGroupText>Nota Promedio</CInputGroupText>
-                  <CFormInput
-                    placeholder="01-20"
-                    type="number"
-                    value={studentData.TSTagrad}
-                    name="TSTagrad"
-                    onChange={handleChange}
-                  ></CFormInput>
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CInputGroupText>Condición del Estudiante</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelect"
-                    value={studentData.TSTmilpe}
-                    name="TSTmilpe"
-                    onChange={handleChange}
-                  >
-                    <option>Seleccione Condición del Estudiante...</option>
-                    <option value="false">Civil</option>
-                    <option value="true">Militar</option>
-                  </CFormSelect>
-                  <CInputGroupText>Componente Militar</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelect"
-                    options={militarComponents}
-                    onChange={handleChangeMilComponent}
-                  ></CFormSelect>
-                  <CInputGroupText>Grado Militar</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelect"
-                    disabled={!milCompSelected}
-                    options={militarGrades}
-                  ></CFormSelect>
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CInputGroupText>Periodo Académico Inicial</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelect"
-                    options={periods}
-                    value={studentData.TMTperid}
-                    name="TMTperid"
-                    onChange={handleChange}
-                  ></CFormSelect>
-                </CInputGroup>
-                <br />
-              </CCard>
-              <CCard className="mb-4">
-                <CCardHeader>Documentos</CCardHeader>
-                <div className="p-4">
-                  <CFormCheck
-                    label="Copia de Documento de Identidad"
-                    value={studentData.TSTiddfo}
-                    name="TSTiddfo"
-                    onChange={handleChange}
-                  />
-                  <CFormCheck
-                    label="Fotocopia de la Inscripción Militar"
-                    value={studentData.TSTminfo}
-                    name="TSTminfo"
-                    onChange={handleChange}
-                  />
-                  <CFormCheck
-                    label="Record Académico Original"
-                    value={studentData.TSTorare}
-                    name="TSTorare"
-                    onChange={handleChange}
-                  />
-                  <CFormCheck
-                    label="Fotos"
-                    value={studentData.TSTphoto}
-                    name="TSTphoto"
-                    onChange={handleChange}
-                  />
-                  <CFormCheck
-                    label="Copia Original del Acta de Nacimiento"
-                    value={studentData.TSTorcbc}
-                    name="TSTorcbc"
-                    onChange={handleChange}
-                  />
-                </div>
-              </CCard>
+              <CInputGroup>
+                <CInputGroupText>Documento de Identificación</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelectID"
+                  value={studentData.TSTtyidd}
+                  name="TSTtyidd"
+                  onChange={handleChange}
+                >
+                  <option>Elija el Tipo de Documento...</option>
+                  <option value="V">Venezolano (V)</option>
+                  <option value="E">Extranjero (E)</option>
+                  <option value="Passport">Pasaporte</option>
+                </CFormSelect>
+                <CFormInput
+                  value={studentData.TSTiddoc}
+                  name="TSTiddoc"
+                  onChange={handleChange}
+                  type="number"
+                  placeholder="Número de Documento"
+                />
+              </CInputGroup>
               <br />
-              <div className="d-flex justify-content-between">
-                <CTab itemKey="CData">
-                  <CButton color="primary">Anterior</CButton>
-                </CTab>
-                <CTab itemKey="Register">
-                  <CButton color="primary">Siguiente</CButton>
-                </CTab>
-              </div>
-            </CTabPanel>
+              <CInputGroup>
+                <CInputGroupText>Nacionalidad</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelectNationality"
+                  value={studentData.TSTnacid}
+                  name="TSTnacid"
+                  onChange={handleChange}
+                  options={nationalities}
+                ></CFormSelect>
+              </CInputGroup>
+              <br />
 
-            <CTabPanel transition className="p-3" itemKey="Register">
-              <CCard className="mb-4">
-                <CCardHeader>Inscripción</CCardHeader>
-                <CInputGroup>
-                  <CInputGroupText>Periodo Académico</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelect"
-                    options={periods}
-                    value={studentData.TMTperid}
-                    name="TMTperid"
-                    onChange={handleChange}
-                  ></CFormSelect>
-                  <CInputGroupText>Código de Carrera</CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelect"
-                    options={careerCods}
-                    value={studentData.TMTproid}
-                    name="TMTproid"
-                    onChange={handleChange}
-                  ></CFormSelect>
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CInputGroupText>Registrado por: </CInputGroupText>
-                  <CFormSelect
-                    id="inputGroupSelect"
-                    options={secretaryStaff}
-                    value={studentData.TMTregby}
-                    name="TMTregby"
-                    onChange={handleChange}
-                  ></CFormSelect>
-                </CInputGroup>
-              </CCard>
-              <CCard className="mb-4">
-                <CCardHeader>Informacion de Pago</CCardHeader>
-                <CInputGroup>
-                  <CInputGroupText>Fecha de Pago</CInputGroupText>
-                  <CFormInput
-                    type="date"
-                    value={studentData.TMTpadat}
-                    name="TMTpadat"
-                    onChange={handleChange}
-                  ></CFormInput>
-                  <CInputGroupText>N° Receipt</CInputGroupText>
-                  <CFormInput
-                    type="number"
-                    value={studentData.TMTnrece}
-                    name="TMTnrece"
-                    onChange={handleChange}
-                  ></CFormInput>
-                  <CInputGroupText>Amount</CInputGroupText>
-                  <CFormInput
-                    type="number"
-                    value={studentData.TMTpaamo}
-                    name="TMTpaamo"
-                    onChange={handleChange}
-                  ></CFormInput>
-                </CInputGroup>
-                <br />
-                <CInputGroup>
-                  <CInputGroupText>Obseravaciones: </CInputGroupText>
-                  <CFormInput size="lg"></CFormInput>
-                </CInputGroup>
-              </CCard>
+              <CInputGroup className="mb-3">
+                <CInputGroupText as="label">Género</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelectGender"
+                  value={studentData.TSTgenst}
+                  name="TSTgenst"
+                  onChange={handleChange}
+                >
+                  <option>Seleccione el Género...</option>
+                  <option value="M">Masculino</option>
+                  <option value="F">Femenino</option>
+                </CFormSelect>
+              </CInputGroup>
+              <CInputGroup>
+                <CInputGroupText>Fecha de Nacimiento</CInputGroupText>
+                <CFormInput
+                  type="date"
+                  placeholder="Birth dare"
+                  value={studentData.TSTbidat}
+                  name="TSTbidat"
+                  onChange={handleChange}
+                />
+              </CInputGroup>
               <br />
-              <div className="d-flex justify-content-between">
-                <CTab itemKey="AData">
-                  <CButton color="primary">Anterior</CButton>
-                </CTab>
-                <CButton color="primary" type="submit">
-                  Registrar
-                </CButton>
-                <CToaster className="p-3" placement="top-end" push={toast} ref={toaster} />
+              <CInputGroup>
+                <CInputGroupText as="label">Estado Civil</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelectBlood"
+                  value={studentData.TSTmstid}
+                  name="TSTmstid"
+                  onChange={handleChange}
+                  options={civilStatus}
+                ></CFormSelect>
+              </CInputGroup>
+              <br />
+              <CInputGroup>
+                <CInputGroupText as="label">Tipo de Sangre</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelectBlood"
+                  value={studentData.TSTtsang}
+                  name="TSTtsang"
+                  onChange={handleChange}
+                >
+                  <option>Seleccione el tipo de Sangre</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                </CFormSelect>
+              </CInputGroup>
+            </CCard>
+            <br />
+            <div className="d-flex justify-content-end">
+              <CButton color="primary" onClick={() => setActiveTab(2)}>Siguiente</CButton>
+            </div>
+          </CTabPane>
+          <CTabPane visible={activeTab === 2}>
+            <CCard className="mb-4">
+              <CCardHeader>Información de Residencia</CCardHeader>
+              <CInputGroup>
+                <CInputGroupText>Lugar de Residencia</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelectState"
+                  options={states}
+                  onChange={handleChangeState}
+                ></CFormSelect>
+                <CFormSelect
+                  id="inputGroupSelectMunicipality"
+                  options={municipalities}
+                  disabled={!stateSelected}
+                  onChange={handleChangeMunicipality}
+                ></CFormSelect>
+                <CFormSelect
+                  id="inputGroupSelectParroquies"
+                  options={parroquies}
+                  disabled={!munSelected}
+                  value={studentData.TSTparid}
+                  name="TSTparid"
+                  onChange={handleChange}
+                ></CFormSelect>
+              </CInputGroup>
+              <br />
+              <CInputGroup>
+                <CInputGroupText>Estado de Residencia</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelectResStatus"
+                  value={studentData.TSTrstid}
+                  name="TSTrstid"
+                  onChange={handleChange}
+                >
+                  <option>Seleccione el Estado de Residencia...</option>
+                  <option value="1">Permanente</option>
+                  <option value="2">Temporal</option>
+                </CFormSelect>
+              </CInputGroup>
+              <br />
+              <CInputGroup>
+                <CInputGroupText>Dirección</CInputGroupText>
+                <CFormInput
+                  type="text"
+                  placeholder="Ej. Avenida Principal Los Naranjos Calle B "
+                  value={studentData.TSTresad}
+                  name="TSTresad"
+                  onChange={handleChange}
+                ></CFormInput>
+              </CInputGroup>
+              <br />
+            </CCard>
+            <CCard className="mb-4">
+              <CCardHeader>Información de Contacto</CCardHeader>
+              <CInputGroup>
+                <CInputGroupText>Correo</CInputGroupText>
+                <CFormInput
+                  type="email"
+                  placeholder="example@email.com"
+                  value={studentData.TSTemail}
+                  name="TSTemail"
+                  onChange={handleChange}
+                ></CFormInput>
+              </CInputGroup>
+              <br />
+              <CInputGroup>
+                <CInputGroupText>Teléfono Celular</CInputGroupText>
+                <PhoneInput
+                  className="form-control p-0"
+                  placeholder="Ingresar N° de Teléfono"
+                  defaultCountry="VE"
+                  value={studentData.TSTcetel}
+                  name="TSTcetel"
+                  onChange={handleChangeTelf1}
+                />
+              </CInputGroup>
+              <br />
+              <CInputGroup>
+                <CInputGroupText>Teléfono de Residencia</CInputGroupText>
+                <PhoneInput
+                  className="form-control p-0"
+                  placeholder="Ingresar N° de Teléfono"
+                  defaultCountry="VE"
+                  value={studentData.TSTretel}
+                  name="TSTretel"
+                  onChange={handleChangeTelf2}
+                />
+              </CInputGroup>
+              <br />
+            </CCard>
+            <br />
+            <div className="d-flex justify-content-between">
+              <CButton color="primary" onClick={() => setActiveTab(1)}>Anterior</CButton>
+              <CButton color="primary" onClick={() => setActiveTab(3)}>Siguiente</CButton>
+            </div>
+          </CTabPane>
+          <CTabPane visible={activeTab === 3}>
+            <CCard className="mb-4">
+              <CCardHeader>Información Académica</CCardHeader>
+              <CInputGroup>
+                <CInputGroupText>Universidad de Procedencia</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelectAcaStr"
+                  options={universities}
+                  value={studentData.TSTuniid}
+                  name="TSTuniid"
+                  onChange={handleChange}
+                ></CFormSelect>
+              </CInputGroup>
+              <br />
+              <CInputGroup>
+                <CInputGroupText>Año de Graduación</CInputGroupText>
+                <CFormInput
+                  placeholder="20XX"
+                  type="year"
+                  value={studentData.TSTgrady}
+                  name="TSTgrady"
+                  onChange={handleChange}
+                ></CFormInput>
+                <CInputGroupText>Mención</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelectAcaStr"
+                  options={gradMentions}
+                  value={studentData.TSTgrmid}
+                  name="TSTgrmid"
+                  onChange={handleChange}
+                ></CFormSelect>
+                <CInputGroupText>Nota Promedio</CInputGroupText>
+                <CFormInput
+                  placeholder="01-20"
+                  type="number"
+                  value={studentData.TSTagrad}
+                  name="TSTagrad"
+                  onChange={handleChange}
+                ></CFormInput>
+              </CInputGroup>
+              <br />
+              <CInputGroup>
+                <CInputGroupText>Condición del Estudiante</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelect"
+                  value={studentData.TSTmilpe}
+                  name="TSTmilpe"
+                  onChange={handleChange}
+                >
+                  <option>Seleccione Condición del Estudiante...</option>
+                  <option value="false">Civil</option>
+                  <option value="true">Militar</option>
+                </CFormSelect>
+                <CInputGroupText>Componente Militar</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelect"
+                  options={militarComponents}
+                  onChange={handleChangeMilComponent}
+                ></CFormSelect>
+                <CInputGroupText>Grado Militar</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelect"
+                  disabled={!milCompSelected}
+                  options={militarGrades}
+                ></CFormSelect>
+              </CInputGroup>
+              <br />
+              <CInputGroup>
+                <CInputGroupText>Periodo Académico Inicial</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelect"
+                  options={periods}
+                  value={studentData.TMTperid}
+                  name="TMTperid"
+                  onChange={handleChange}
+                ></CFormSelect>
+              </CInputGroup>
+              <br />
+            </CCard>
+            <CCard className="mb-4">
+              <CCardHeader>Documentos</CCardHeader>
+              <div className="p-4">
+                <CFormCheck
+                  label="Copia de Documento de Identidad"
+                  checked={studentData.TSTiddfo}
+                  name="TSTiddfo"
+                  onChange={e => setStudentData({ ...studentData, TSTiddfo: e.target.checked })}
+                />
+                <CFormCheck
+                  label="Fotocopia de la Inscripción Militar"
+                  checked={studentData.TSTminfo}
+                  name="TSTminfo"
+                  onChange={e => setStudentData({ ...studentData, TSTminfo: e.target.checked })}
+                />
+                <CFormCheck
+                  label="Record Académico Original"
+                  checked={studentData.TSTorare}
+                  name="TSTorare"
+                  onChange={e => setStudentData({ ...studentData, TSTorare: e.target.checked })}
+                />
+                <CFormCheck
+                  label="Fotos"
+                  checked={studentData.TSTphoto}
+                  name="TSTphoto"
+                  onChange={e => setStudentData({ ...studentData, TSTphoto: e.target.checked })}
+                />
+                <CFormCheck
+                  label="Copia Original del Acta de Nacimiento"
+                  checked={studentData.TSTorcbc}
+                  name="TSTorcbc"
+                  onChange={e => setStudentData({ ...studentData, TSTorcbc: e.target.checked })}
+                />
               </div>
-            </CTabPanel>
-          </CTabContent>
-        </CTabs>
+            </CCard>
+            <br />
+            <div className="d-flex justify-content-between">
+              <CButton color="primary" onClick={() => setActiveTab(2)}>Anterior</CButton>
+              <CButton color="primary" onClick={() => setActiveTab(4)}>Siguiente</CButton>
+            </div>
+          </CTabPane>
+          <CTabPane visible={activeTab === 4}>
+            <CCard className="mb-4">
+              <CCardHeader>Inscripción</CCardHeader>
+              <CInputGroup>
+                <CInputGroupText>Periodo Académico</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelect"
+                  options={periods}
+                  value={studentData.TMTperid}
+                  name="TMTperid"
+                  onChange={handleChange}
+                ></CFormSelect>
+                <CInputGroupText>Código de Carrera</CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelect"
+                  options={careerCods}
+                  value={studentData.TMTproid}
+                  name="TMTproid"
+                  onChange={handleChange}
+                ></CFormSelect>
+              </CInputGroup>
+              <br />
+              <CInputGroup>
+                <CInputGroupText>Registrado por: </CInputGroupText>
+                <CFormSelect
+                  id="inputGroupSelect"
+                  options={secretaryStaff}
+                  value={studentData.TMTregby}
+                  name="TMTregby"
+                  onChange={handleChange}
+                ></CFormSelect>
+              </CInputGroup>
+            </CCard>
+            <CCard className="mb-4">
+              <CCardHeader>Informacion de Pago</CCardHeader>
+              <CInputGroup>
+                <CInputGroupText>Fecha de Pago</CInputGroupText>
+                <CFormInput
+                  type="date"
+                  value={studentData.TMTpadat}
+                  name="TMTpadat"
+                  onChange={handleChange}
+                ></CFormInput>
+                <CInputGroupText>N° Receipt</CInputGroupText>
+                <CFormInput
+                  type="number"
+                  value={studentData.TMTnrece}
+                  name="TMTnrece"
+                  onChange={handleChange}
+                ></CFormInput>
+                <CInputGroupText>Amount</CInputGroupText>
+                <CFormInput
+                  type="number"
+                  value={studentData.TMTpaamo}
+                  name="TMTpaamo"
+                  onChange={handleChange}
+                ></CFormInput>
+              </CInputGroup>
+              <br />
+              <CInputGroup>
+                <CInputGroupText>Obseravaciones: </CInputGroupText>
+                <CFormInput size="lg"></CFormInput>
+              </CInputGroup>
+            </CCard>
+            <br />
+            <div className="d-flex justify-content-between">
+              <CButton color="primary" onClick={() => setActiveTab(3)}>Anterior</CButton>
+              <CButton color="primary" type="submit">
+                Registrar
+              </CButton>
+              <CToaster className="p-3" placement="top-end" push={toast} ref={toaster} />
+            </div>
+          </CTabPane>
+        </CTabContent>
       </CForm>
     </>
   )

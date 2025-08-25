@@ -34,7 +34,7 @@ const teacherList = ({ teachers }) => {
               <div>{item.status}</div>
             </CTableDataCell>
             <CTableDataCell className="text-center">
-              <Link to={`/teacher/${item.uid}`}>
+              <Link to={`/teachers/${item.uid}`}>
                 <CIcon icon={cilPen} size="lg" color="primary" />
               </Link>
             </CTableDataCell>

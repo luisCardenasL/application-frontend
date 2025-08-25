@@ -28,6 +28,7 @@
     "@coreui/react-chartjs": "^3.0.0",
     "@coreui/utils": "^2.0.2",
     "@popperjs/core": "^2.11.8",
+    "@react-pdf/renderer": "^4.3.0",
     "chart.js": "^4.4.4",
     "classnames": "^2.5.1",
     "core-js": "^3.38.1",
@@ -55,6 +56,6 @@
     "postcss": "^8.4.47",
     "prettier": "3.3.3",
     "sass": "^1.79.3",
-    "vite": "^5.4.8"
+    "vite": "^7.0.2"
   }
 }

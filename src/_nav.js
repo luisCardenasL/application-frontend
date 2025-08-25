@@ -86,7 +86,7 @@ const adminNav = [
   {
     component: CNavItem,
     name: 'Secciones',
-    to: '#',
+    to: '/sections',
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
   },
   {
@@ -182,5 +182,21 @@ const coordinatorNav = [
     icon: <CIcon icon={cilGroup} customClassName="nav-icon" />,
   }
 ]
+
+// Devuelve el menú adecuado según el rol
+export function getNavByRole(role) {
+  switch (role) {
+    case 'admin':
+      return adminNav
+    case 'secretary':
+      return secretaryNav
+    case 'teacher':
+      return teacherNav
+    case 'coordinator':
+      return coordinatorNav
+    default:
+      return _nav
+  }
+}
 
 export default {adminNav,secretaryNav,teacherNav,coordinatorNav,_nav}

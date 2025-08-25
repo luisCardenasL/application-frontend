@@ -18,6 +18,19 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import react from 'react'
 import helpFetch from '../../../hooks/helpFetch'
+import fondo from '../../../assets/images/Fachada-UNEFA-1000x600.jpeg' // Import para asegurar que Vite procese la imagen
+
+// Agregar estilos en línea para el fondo
+const loginBgStyle = {
+  backgroundImage: `url(${fondo})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  minHeight: '100vh',
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -69,7 +82,7 @@ const Login = () => {
   }
 
   return (
-    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+    <div className="login-bg min-vh-100 d-flex flex-row align-items-center" style={loginBgStyle}>
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={8}>
@@ -77,13 +90,13 @@ const Login = () => {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm onSubmit={handleSubmit}>
-                    <h1>Login</h1>
-                    <p className="text-body-secondary">Sign In to your account</p>
+                    <h1>Iniciar Sesión</h1>
+                    <p className="text-body-secondary">Accede a tu cuenta</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Email"
+                      <CFormInput placeholder="Correo electrónico"
                       name='email'
                        onChange={handleChange}
                        value={user.email}
@@ -98,7 +111,7 @@ const Login = () => {
                         type="password"
                         value={user.password}
                         onChange={handleChange}
-                        placeholder="Password"
+                        placeholder="Contraseña"
                         autoComplete="current-password"
                       />
                     </CInputGroup>
@@ -111,13 +124,13 @@ const Login = () => {
                           active
                           tabIndex={-1}
                         >
-                          Login
+                          Iniciar Sesión
                         </CButton>
                       </CCol>
                       <CCol xs={6} className="text-right">
                         <Link to="/recuperation">
                           <CButton color="link" className="px-0">
-                            Forgot password?
+                            ¿Olvidaste tu contraseña?
                           </CButton>
                         </Link>
                       </CCol>

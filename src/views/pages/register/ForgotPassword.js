@@ -16,8 +16,21 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import helpFetch from '../../../hooks/helpFetch'
+import '../../../assets/images/Fachada-UNEFA-1000x600.jpeg' // Import para asegurar que Vite procese la imagen
 
 import { useState } from 'react'
+
+// Estilo para el fondo
+const forgotBgStyle = {
+  backgroundImage: `url('/src/assets/images/Fachada-UNEFA-1000x600.jpeg')`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  minHeight: '100vh',
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
 
 const Register = () => {
   let navigate = useNavigate()
@@ -60,21 +73,21 @@ const Register = () => {
   },[isRestored])
 
   return (
-    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+    <div className="forgot-bg min-vh-100 d-flex flex-row align-items-center" style={forgotBgStyle}>
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={9} lg={7} xl={6}>
-          <CCard className="mx-4">
+            <CCard className="mx-4">
               <CCardBody className="p-4">
-              <CForm onSubmit={handleSubmit}>
-                  <h1>Forgot Password?</h1>
-                  <p className="text-body-secondary">Restore your password</p>
+                <CForm onSubmit={handleSubmit}>
+                  <h1>¿Olvidaste tu contraseña?</h1>
+                  <p className="text-body-secondary">Restaura tu contraseña</p>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>@</CInputGroupText>
-                    <CFormInput onChange={handleChange} name='email' placeholder="Email" value={restoreUser.email} autoComplete="email" />
+                    <CFormInput onChange={handleChange} name='email' placeholder="Correo electrónico" value={restoreUser.email} autoComplete="email" />
                   </CInputGroup>
                   <div className="d-grid">
-                    <CButton color='success' type='submit'>Confirm </CButton>
+                    <CButton color='success' type='submit'>Confirmar</CButton>
                   </div>
                 </CForm>
               </CCardBody>
